@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed; // Speed of the player's movement
     private Rigidbody2D body; // Reference to the RigidBody 2D component
     private Animator anim;
+    private bool grounded;
 
     private void Awake() // Called everytime the script is loaded (game starts)
     {
@@ -31,13 +32,29 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1); // Face left when moving left. one on the x-axis, one on the y-axis, one on the z-axis
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && grounded)
         {
-            body.linearVelocity = new Vector2(body.linearVelocity.x, speed); // Move player up vertically when space is pressed
+            Jump(); // Call the Jump method when the space key is pressed
         }
 
         //Set animator parameters based on player input
         anim.SetBool("run", horizontalInput != 0); //is one equal to zero? If not, set run to true else false
+        anim.SetBool("grounded", grounded); // Set grounded parameter in animator based on the grounded variable
     }
-        
+
+    private void Jump()
+    {
+        body.linearVelocity = new Vector2(body.linearVelocity.x, speed); // Move player up vertically when space is pressed
+        anim.SetTrigger("jump"); // Trigger the jump animation
+        grounded = false; // Set grounded to false when jumping
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")// Ground is the tag assigned to the ground GameObject
+        {
+            grounded = true; // Set grounded to true when colliding with the ground
+        }
+    }
+
 }
