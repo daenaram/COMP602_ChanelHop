@@ -5,36 +5,34 @@ public class PauseScript : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenu;
 
-    public void Start()
+    public void Awake()
     {
         pauseMenu.SetActive(false); // Ensure the pause menu is inactive at the start
     }
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            pauseMenu.SetActive(true);
-        }
     }
-    //public void pause()
-    //{
-    //    pauseMenu.SetActive(true); // Activate the pause menu
-    //}
+    public void pause()
+    {
+        pauseMenu.SetActive(true); // Activate the pause menu
+        Time.timeScale = 0; // Pause the game
+    }
 
-    //public void home()
-    //{
-        
-    //}
+    public void home()
+    {
 
-    //public void resume()
-    //{
-    //    pauseMenu.SetActive(false);
-    //}
+    }
 
-    //public void restart()
-    //{
-        
-    //}
+    public void resume()
+    {
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1; // Resume the game
+    }
+
+    public void restart()
+    {
+
+    }
 
 }
