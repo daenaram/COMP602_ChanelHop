@@ -4,7 +4,7 @@ public class PlayerRespawn : MonoBehaviour
 {
     [SerializeField] private AudioClip checkpointSound; //sound that play when picking up a new checkpoint
     private Transform currentCheckpoint; //we'll store our last checkpoint here
-    //private Health playerHealth;
+    private Health playerHealth;
 
     private void Awake()
     {
@@ -13,7 +13,7 @@ public class PlayerRespawn : MonoBehaviour
     public void Respawn()
     {
         transform.position = currentCheckpoint.position;// Move player to checkpoint position
-        //restor player health
+        playerHealth.Respawn();//restor player health
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
