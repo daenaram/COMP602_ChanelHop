@@ -1,32 +1,38 @@
 using UnityEngine;
 
+
+/// Controls floating weapon pickups that bob up and down and can be collected by the player
+
 public class FloatingWeapon : MonoBehaviour
 {
+    // Defines the available types of weapons that can be picked up
     public enum WeaponType { Sword, Axe, Staff, Bow }
 
-    [SerializeField] private float amplitude = 0.5f;    
-    [SerializeField] private float frequency = 1f;      
-    [SerializeField] private float interactionRange = 2f;
-    [SerializeField] private SpriteRenderer overlayRenderer; // Reference to child overlay renderer
-    [SerializeField] private WeaponType weaponType; // Select in Inspector
+    // Movement and interaction settings
+    [SerializeField] private float amplitude = 0.5f;    // Height of bobbing motion
+    [SerializeField] private float frequency = 1f;      // Speed of bobbing motion
+    [SerializeField] private float interactionRange = 2f;  // Distance at which player can interact
+    [SerializeField] private SpriteRenderer overlayRenderer;  // Visual indicator when in range
+    [SerializeField] private WeaponType weaponType;  // Type of weapon this pickup represents
 
-    private Vector3 startPosition;
-    private float timeOffset;
-    private bool isInRange = false;
-    private bool isCollected = false;
+    // Internal state tracking
+    private Vector3 startPosition;  // Original position of the weapon
+    private float timeOffset;  // Random offset to prevent all weapons bobbing in sync
+    private bool isInRange = false;  // Whether player is in pickup range
+    private bool isCollected = false;  // Whether weapon has been collected
 
     private void Start()
     {
+        // Store initial position and add random time offset
         startPosition = transform.position;
         timeOffset = Random.Range(0f, 2f * Mathf.PI);
         
-        // Get reference to overlay renderer if not set
+        // Setup overlay renderer for interaction indicator
         if (overlayRenderer == null)
         {
             overlayRenderer = transform.GetComponentInChildren<SpriteRenderer>();
         }
         
-        // Hide overlay initially
         if (overlayRenderer != null)
         {
             overlayRenderer.enabled = false;
@@ -35,9 +41,10 @@ public class FloatingWeapon : MonoBehaviour
 
     private void Update()
     {
+        // Skip updates if weapon is already collected
         if (isCollected) return;
 
-        // Calculate bobbing motion
+        // Apply bobbing motion using sine wave
         float newY = startPosition.y + amplitude * Mathf.Sin((Time.time + timeOffset) * frequency);
         transform.position = new Vector3(
             transform.position.x,
@@ -45,9 +52,8 @@ public class FloatingWeapon : MonoBehaviour
             transform.position.z
         );
 
+        // Check if player is in range and handle pickup input
         CheckPlayerRange();
-
-        // Check for pickup
         if (isInRange && Input.GetKeyDown(KeyCode.E))
         {
             CollectWeapon();
@@ -56,6 +62,7 @@ public class FloatingWeapon : MonoBehaviour
 
     private void CheckPlayerRange()
     {
+        // Find player and check distance
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null && overlayRenderer != null)
         {
@@ -63,7 +70,7 @@ public class FloatingWeapon : MonoBehaviour
             bool wasInRange = isInRange;
             isInRange = distance <= interactionRange;
 
-            // Toggle overlay visibility based on range
+            // Show/hide interaction indicator when entering/leaving range
             if (wasInRange != isInRange)
             {
                 overlayRenderer.enabled = isInRange;
@@ -73,15 +80,16 @@ public class FloatingWeapon : MonoBehaviour
 
     private void CollectWeapon()
     {
+        // Mark as collected and hide visual elements
         isCollected = true;
         if (overlayRenderer != null)
             overlayRenderer.enabled = false;
 
-        // Hide the main sprite as well
         SpriteRenderer mainRenderer = GetComponent<SpriteRenderer>();
         if (mainRenderer != null)
             mainRenderer.enabled = false;
 
+        // Find player and attempt to equip weapon
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
@@ -94,6 +102,7 @@ public class FloatingWeapon : MonoBehaviour
         }
     }
 
+    // Called when player switches to a different weapon to make this one available again
     public void ReactivateWeapon()
     {
         isCollected = false;
@@ -105,6 +114,7 @@ public class FloatingWeapon : MonoBehaviour
             mainRenderer.enabled = true;
     }
 
+    // Visualize interaction range in the Unity editor
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;

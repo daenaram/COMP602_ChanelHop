@@ -8413,6 +8413,7 @@ GameObject:
   - component: {fileID: 1050891736}
   - component: {fileID: 1050891737}
   - component: {fileID: 1050891738}
+  - component: {fileID: 1050891739}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -8650,6 +8651,18 @@ MonoBehaviour:
   prefabAxe: {fileID: 825848361}
   prefabStaff: {fileID: 841598818}
   prefabBow: {fileID: 2096172187}
+--- !u!114 &1050891739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050891729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473fb90e0d9ba2341b7fadd452c0dbe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1053763115
 GameObject:
   m_ObjectHideFlags: 0
