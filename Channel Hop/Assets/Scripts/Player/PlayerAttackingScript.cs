@@ -113,7 +113,7 @@ public class PlayerAttackingScript : MonoBehaviour
         {
             // Get the facing direction based on character's sprite
             float facingDirection = characterSprite.flipX ? -1f : 1f;
-            Vector3 shootDirection = transform.right * facingDirection;
+            Vector3 shootDirection = Vector3.right * facingDirection;
 
             GameObject projectile = Instantiate(staffProjectilePrefab, rangedAttackPoint.position, rangedAttackPoint.rotation);
             Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
@@ -146,7 +146,7 @@ public class PlayerAttackingScript : MonoBehaviour
             {
                 // Get the facing direction based on character's sprite
                 float facingDirection = characterSprite.flipX ? -1f : 1f;
-                Vector3 shootDirection = transform.right * facingDirection;
+                Vector3 shootDirection = Vector3.right * facingDirection;
 
                 GameObject arrow = Instantiate(arrowPrefab, rangedAttackPoint.position, rangedAttackPoint.rotation);
                 Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();

@@ -2737,7 +2737,7 @@ Transform:
   m_GameObject: {fileID: 225825979}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.094, y: -0.005, z: 0}
+  m_LocalPosition: {x: -0.094, y: -0.133, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8765,8 +8765,8 @@ MonoBehaviour:
   staffProjectileSpeed: 8
   bowChargeTime: 0.5
   bowArrowSpeed: 15
-  staffProjectilePrefab: {fileID: 4306167161924932604, guid: e7d65df30c4a0d84596ac70c3b0ba454, type: 3}
-  arrowPrefab: {fileID: 8848248799735909782, guid: e65547cb62862a74e91a1cdb60870ee1, type: 3}
+  staffProjectilePrefab: {fileID: 2479310383862175614, guid: 2bcaf6a23af911c4a8f7544eb3f43903, type: 3}
+  arrowPrefab: {fileID: 3586903899358818713, guid: 8456a4deffa72d84aae20c87f29d9421, type: 3}
   swordSlashPrefab: {fileID: 4599840539083574084, guid: 9b32816e1429ab04d858fefbff402dd4, type: 3}
   axeSlashPrefab: {fileID: 1558609236971415832, guid: 3c96866de839e3c4ab0a0fff88f202e0, type: 3}
   meleeRange: 1.5
