@@ -3,7 +3,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
 
-    [SerializeField] private Transform player;
+    [SerializeField] private Transform player; // assigned to player 1
     [SerializeField] private float lookAheadDistance; // Distance the camera looks ahead of the player
     [SerializeField] private float cameraSpeed; // Speed at which the camera moves
     private float lookAhead; // Current look ahead distance
