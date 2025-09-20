@@ -21,8 +21,12 @@ public class StaffProjectile : MonoBehaviour
             {
                 if (hitCollider.CompareTag("Enemy"))
                 {
-                    IDamageable enemy = hitCollider.GetComponent<IDamageable>();
-                    enemy?.TakeDamage(damage);
+                    // Get Health instead of IDamageable
+                    Health enemyHealth = hitCollider.GetComponent<Health>();
+                    if (enemyHealth != null)
+                    {
+                        enemyHealth.TakeDamage(damage);
+                    }
                 }
             }
             Destroy(gameObject);

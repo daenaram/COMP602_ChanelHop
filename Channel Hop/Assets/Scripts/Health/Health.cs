@@ -3,11 +3,14 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-
+    [Header("Health")]
     [SerializeField] private float startingHealth;
     public float currentHealth { get; private set; }
     private Animator anim;
     private bool dead;
+
+    [Header("Components to disable on death")]
+    [SerializeField] private Behaviour[] components;
 
     private void Awake()
     {
@@ -41,6 +44,14 @@ public class Health : MonoBehaviour
 
                 if(GetComponent<MeleeEnemy>() != null)
                     GetComponent<MeleeEnemy>().enabled = false;
+
+                foreach (Behaviour component in components)
+                    component.enabled = false;
+
+                BoxCollider2D box = GetComponent<BoxCollider2D>();
+                if (box != null)
+                    box.enabled = false;
+
 
                 dead = true;
             }
