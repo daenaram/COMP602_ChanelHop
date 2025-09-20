@@ -12,10 +12,13 @@ public class Health : MonoBehaviour
     [Header("Components to disable on death")]
     [SerializeField] private Behaviour[] components;
 
+    private Rigidbody2D rb;
+
     private void Awake()
     {
         currentHealth = startingHealth;
         anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -45,12 +48,17 @@ public class Health : MonoBehaviour
                 if(GetComponent<MeleeEnemy>() != null)
                     GetComponent<MeleeEnemy>().enabled = false;
 
-                foreach (Behaviour component in components)
-                    component.enabled = false;
+                
 
                 BoxCollider2D box = GetComponent<BoxCollider2D>();
                 if (box != null)
                     box.enabled = false;
+
+                if (rb != null)
+                {
+                    rb.linearVelocity = Vector2.zero;
+                    rb.bodyType = RigidbodyType2D.Kinematic; // stop physics from moving the player
+                }
 
 
                 dead = true;
@@ -82,5 +90,17 @@ public class Health : MonoBehaviour
 
         if (GetComponent<MeleeEnemy>() != null)
             GetComponent<MeleeEnemy>().enabled = true;
+
+        // Re-enable collider
+        BoxCollider2D box = GetComponent<BoxCollider2D>();
+        if (box != null)
+            box.enabled = true;
+
+        // Reset Rigidbody velocity (important for player respawn)
+        if (rb != null)
+        {
+            rb.bodyType = RigidbodyType2D.Dynamic;
+            rb.velocity = Vector2.zero;
+        }
     }
 }
