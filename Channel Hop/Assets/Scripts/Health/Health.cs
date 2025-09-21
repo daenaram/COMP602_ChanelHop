@@ -100,7 +100,7 @@ public class Health : MonoBehaviour
         if (rb != null)
         {
             rb.bodyType = RigidbodyType2D.Dynamic;
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
         }
     }
 }
