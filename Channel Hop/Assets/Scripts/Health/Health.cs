@@ -103,4 +103,8 @@ public class Health : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
         }
     }
+    public void SetHealth(float value)
+    {
+        currentHealth = Mathf.Clamp(value, 0, startingHealth);
+    }
 }
