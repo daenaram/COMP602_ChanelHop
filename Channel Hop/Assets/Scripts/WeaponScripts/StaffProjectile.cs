@@ -35,7 +35,7 @@ public class StaffProjectile : MonoBehaviour
 
     public void SetDirection(float direction)
     {
-        GetComponent<Rigidbody2D>().linearVelocity = Vector2.right * direction * staffProjectileSpeed;
+        GetComponent<Rigidbody2D>().linearVelocity = Vector2.right * direction * staffProjectileSpeed;// Set velocity based on direction
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
         if (sprite != null)
         {

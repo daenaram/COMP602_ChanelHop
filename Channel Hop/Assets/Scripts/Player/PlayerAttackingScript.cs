@@ -119,23 +119,23 @@ public class PlayerAttackingScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            // Facing direction
+            //facing direction
             float facingDirection = transform.localScale.x > 0 ? 1f : -1f;
             Vector3 shootDirection = new Vector3(facingDirection, 0f, 0f).normalized;
 
-            // Spawn projectile
+          
             GameObject projectile = Instantiate(staffProjectilePrefab, rangedAttackPoint.position, Quaternion.identity);
 
-            // Apply velocity
+            //Apply velocity
             Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
             rb.linearVelocity = shootDirection * staffProjectileSpeed;
 
-            // Optional: flip sprite
+           
             SpriteRenderer projectileSprite = projectile.GetComponent<SpriteRenderer>();
             if (projectileSprite != null)
                 projectileSprite.flipX = (facingDirection < 0);
 
-            // Add StaffProjectile behaviour
+            
             StaffProjectile staffProj = projectile.AddComponent<StaffProjectile>();
             staffProj.Initialize(staffAoeRadius, 1);
 
