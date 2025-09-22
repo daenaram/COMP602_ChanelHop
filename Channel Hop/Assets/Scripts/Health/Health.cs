@@ -7,7 +7,7 @@ public class Health : MonoBehaviour
     [SerializeField] private float startingHealth;
     public float currentHealth { get; private set; }
     private Animator anim;
-    private bool dead;
+    public bool dead;
 
     [Header("Components to disable on death")]
     [SerializeField] private Behaviour[] components;
@@ -88,6 +88,11 @@ public class Health : MonoBehaviour
         if (GetComponentInParent<EnemyPatrol>() != null)
             GetComponentInParent<EnemyPatrol>().enabled = true;
 
+
+        if (GetComponent<MeleeEnemy>() != null)
+            GetComponent<MeleeEnemy>().enabled = true;
+
+
         if (GetComponent<MeleeEnemy>() != null)
             GetComponent<MeleeEnemy>().enabled = true;
 
@@ -107,4 +112,5 @@ public class Health : MonoBehaviour
     {
         currentHealth = Mathf.Clamp(value, 0, startingHealth);
     }
+
 }

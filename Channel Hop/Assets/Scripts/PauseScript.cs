@@ -26,6 +26,7 @@ public class PauseScript : MonoBehaviour
     public void home()
     {
         Debug.Log("going home");
+        SceneManager.LoadScene("Menu");
     }
 
     public void resume()
@@ -37,8 +38,8 @@ public class PauseScript : MonoBehaviour
 
     public void restart()
     {
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Debug.Log("restarting");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1;
     }
 
 }
