@@ -3983,8 +3983,9 @@ GameObject:
   m_Component:
   - component: {fileID: 493182128}
   - component: {fileID: 493182129}
+  - component: {fileID: 493182130}
   m_Layer: 0
-  m_Name: PlayAgainUI
+  m_Name: GameOverUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4021,9 +4022,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3261340b3183ebf40bcfbaec05df80c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playAgain: {fileID: 493182127}
-  reviveButton: {fileID: 1544411635}
-  exitButton: {fileID: 1491869468}
+--- !u!114 &493182130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493182127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6586bc60df48404db049ccfa2fab3fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOver: {fileID: 493182127}
 --- !u!1 &502622759
 GameObject:
   m_ObjectHideFlags: 0
@@ -6420,7 +6431,7 @@ GameObject:
   - component: {fileID: 729142144}
   - component: {fileID: 729142143}
   m_Layer: 0
-  m_Name: You Died
+  m_Name: Game Over
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8462,6 +8473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 4
+  dead: 0
 --- !u!1 &1053763115
 GameObject:
   m_ObjectHideFlags: 0
@@ -10974,7 +10986,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1491869469}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 493182130}
+        m_TargetAssemblyTypeName: GameOverScript, Assembly-CSharp
+        m_MethodName: exit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1491869469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11579,7 +11603,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1544411636}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 493182130}
+        m_TargetAssemblyTypeName: GameOverScript, Assembly-CSharp
+        m_MethodName: revive
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1544411636
 MonoBehaviour:
   m_ObjectHideFlags: 0

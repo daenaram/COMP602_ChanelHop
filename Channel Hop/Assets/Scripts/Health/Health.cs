@@ -7,7 +7,7 @@ public class Health : MonoBehaviour
     [SerializeField] private float startingHealth;
     public float currentHealth { get; private set; }
     private Animator anim;
-    private bool dead;
+    public bool dead;
 
     private void Awake()
     {
@@ -53,23 +53,26 @@ public class Health : MonoBehaviour
     {
         currentHealth = Mathf.Clamp(currentHealth + _value, 0, startingHealth);
     }
-    public void Respawn()
-    {
-        dead = false;
-        AddHealth(startingHealth);
-        anim.ResetTrigger("die");
-        anim.Play("Idle");
-        //StartCoroutine(Invunerability());// this is optional
+    //public void Respawn()
+    //{
+    //    Debug.Log("respawning health.cs");
+    //    dead = false;
+    //    AddHealth(startingHealth);
+    //    anim.ResetTrigger("die");
+    //    anim.Play("Idle");
+    //    //StartCoroutine(Invunerability());// this is optional
 
-        /*foreach (Behaviour component in components)
-            component.enabled = true; NOT YET IMPLEMENTED*/
-        if (GetComponent<PlayerMovement>() != null)
-            GetComponent<PlayerMovement>().enabled = true;
+    //    /*foreach (Behaviour component in components)
+    //        component.enabled = true; NOT YET IMPLEMENTED*/
+    //    if (GetComponent<PlayerMovement>() != null)
+    //        GetComponent<PlayerMovement>().enabled = true;
 
-        if (GetComponentInParent<EnemyPatrol>() != null)
-            GetComponentInParent<EnemyPatrol>().enabled = true;
+    //    if (GetComponentInParent<EnemyPatrol>() != null)
+    //        GetComponentInParent<EnemyPatrol>().enabled = true;
 
-        if (GetComponent<MeleeEnemy>() != null)
-            GetComponent<MeleeEnemy>().enabled = true;
-    }
+    //    if (GetComponent<MeleeEnemy>() != null)
+    //        GetComponent<MeleeEnemy>().enabled = true;
+    //}
+
+    public bool isDead() { return dead; }
 }
