@@ -54,8 +54,18 @@ public class PlayerMovement : MonoBehaviour
 
             if(onWall() && !isGrounded())
             {
-                body.gravityScale = 0;
-                body.linearVelocity = Vector2.zero;
+                body.gravityScale = 1;
+                if (Mathf.Abs(horizontalInput) > 0)
+                {
+                    
+                    body.linearVelocity = new Vector2(0, body.linearVelocity.y);
+                }
+                else
+                {
+                    body.gravityScale = 0;
+                    body.linearVelocity = new Vector2(body.linearVelocity.x, Mathf.Lerp(body.linearVelocity.y, -1f, Time.deltaTime*10)); // Stop vertical movement when on wall and no horizontal input
+                }
+                
             }
             else
             {
