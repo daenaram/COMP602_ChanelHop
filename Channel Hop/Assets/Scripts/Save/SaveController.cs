@@ -1,17 +1,56 @@
 using UnityEngine;
 using System.IO;
+using System.Collections;
+using UnityEngine.UI;
 
 public class SaveController : MonoBehaviour
 {   
-    private string saveFileName = "SaveFile.json";
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private string saveFileDirectory;
+    private string autoSaveFileName = "AutoSave.json";
+    private float autoSaveInterval = 60f; // Autosave every 60 seconds
+    private bool isAutoSaveEnabled = true;
+
     void Start()
     {
-        saveFileName = Path.Combine(Application.persistentDataPath, saveFileName);
-        Debug.Log("Save file location: " + saveFileName);
+        saveFileDirectory = Application.persistentDataPath;
+        Debug.Log("Save directory location: " + saveFileDirectory);
+        
+        if (isAutoSaveEnabled)
+        {
+            StartCoroutine(AutoSaveRoutine());
+        }
     }
 
-    public void SaveGame()
+    private IEnumerator AutoSaveRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(autoSaveInterval);
+            SaveGame(autoSaveFileName);
+            Debug.Log("Auto-saved game");
+        }
+    }
+
+    public void SaveGameWithName()
+    {
+        // This should be called by your save button
+        StartCoroutine(ShowSaveDialog());
+    }
+
+    private IEnumerator ShowSaveDialog()
+    {
+        Time.timeScale = 0;
+        // This will be handled by SaveUI now
+        yield break;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+    }
+
+    // Change from private to public
+    public void SaveGame(string fileName)
     {
         SaveData saveData = new SaveData
         {
@@ -20,23 +59,28 @@ public class SaveController : MonoBehaviour
             currentWeapon = GameObject.FindWithTag("Player").GetComponent<PlayerWeaponController>().GetCurrentWeaponType(),
             currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
         };
-        File.WriteAllText(saveFileName, JsonUtility.ToJson(saveData));
+
+        string filePath = Path.Combine(saveFileDirectory, fileName);
+        File.WriteAllText(filePath, JsonUtility.ToJson(saveData));
+        Debug.Log($"Game saved to: {filePath}");
     }
 
-    public void LoadGame()
+    public void LoadGame(string fileName)
     {
-        if(File.Exists(saveFileName))
+        string filePath = Path.Combine(saveFileDirectory, fileName);
+        if(File.Exists(filePath))
         {
-            SaveData saveData = JsonUtility.FromJson<SaveData>(File.ReadAllText(saveFileName));
+            SaveData saveData = JsonUtility.FromJson<SaveData>(File.ReadAllText(filePath));
 
             GameObject.FindWithTag("Player").transform.position = saveData.playerPosition;
-            GameObject.FindWithTag("Player").GetComponent<Health>().SetHealth(saveData.currentHealth); // Changed this line
+            GameObject.FindWithTag("Player").GetComponent<Health>().SetHealth(saveData.currentHealth);
             GameObject.FindWithTag("Player").GetComponent<PlayerWeaponController>().EquipWeapon(saveData.currentWeapon, null);
             UnityEngine.SceneManagement.SceneManager.LoadScene(saveData.currentSceneName);
         }
-        else
-        {
-            SaveGame(); // Create a new save file if none exists
-        }
+    }
+
+    public string[] GetSaveFiles()
+    {
+        return Directory.GetFiles(saveFileDirectory, "*.json");
     }
 }
