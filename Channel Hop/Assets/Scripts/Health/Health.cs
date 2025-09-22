@@ -67,7 +67,7 @@ public class Health : MonoBehaviour
         }
     }
 
-    // Add health (reference to HealthCollectible script)
+    
     public void AddHealth(float _value)
     {
         currentHealth = Mathf.Clamp(currentHealth + _value, 0, startingHealth);
