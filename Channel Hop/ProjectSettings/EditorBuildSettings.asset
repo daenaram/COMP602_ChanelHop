@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Levels/MultiplayerMenu.unity
     guid: 50ddb91398e901a4c994329067520a50
+  - enabled: 1
+    path: Assets/Levels/Level1save and load.unity
+    guid: 2d7ed237c848e4c47975dc29679408f0
   - enabled: 0
     path: Assets/Levels/Level1Demo(Ignore).unity
     guid: 5df34fa822a83c34295c3e11cd58065d
