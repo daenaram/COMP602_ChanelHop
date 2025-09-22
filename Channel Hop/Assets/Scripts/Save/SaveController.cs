@@ -4,23 +4,31 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class SaveController : MonoBehaviour
-{   
-    private string saveFileDirectory;
-    private string autoSaveFileName = "AutoSave.json";
-    private float autoSaveInterval = 60f; // Autosave every 60 seconds
-    private bool isAutoSaveEnabled = true;
+{
+    private string saveFileDirectory;          // Save folder path
+    private string autoSaveFileName = "AutoSave.json"; // Autosave filename
+    private float autoSaveInterval = 60f;      // Autosave every 60 seconds
+    private bool isAutoSaveEnabled = true;     // Enable or disable autosave
+    public static SaveData SaveDataToApply;    // Store save data between scenes
 
-    void Start()
+    // Awake runs before Start, ensures directory is set early
+    private void Awake()
     {
         saveFileDirectory = Application.persistentDataPath;
+    }
+
+    // Start initializes autosave routine
+    private void Start()
+    {
         Debug.Log("Save directory location: " + saveFileDirectory);
-        
+
         if (isAutoSaveEnabled)
         {
             StartCoroutine(AutoSaveRoutine());
         }
     }
 
+    // Coroutine for periodic autosave
     private IEnumerator AutoSaveRoutine()
     {
         while (true)
@@ -31,25 +39,7 @@ public class SaveController : MonoBehaviour
         }
     }
 
-    public void SaveGameWithName()
-    {
-        // This should be called by your save button
-        StartCoroutine(ShowSaveDialog());
-    }
-
-    private IEnumerator ShowSaveDialog()
-    {
-        Time.timeScale = 0;
-        // This will be handled by SaveUI now
-        yield break;
-    }
-
-    public void ResumeGame()
-    {
-        Time.timeScale = 1;
-    }
-
-    // Change from private to public
+    // Save game to specified filename
     public void SaveGame(string fileName)
     {
         SaveData saveData = new SaveData
@@ -65,22 +55,28 @@ public class SaveController : MonoBehaviour
         Debug.Log($"Game saved to: {filePath}");
     }
 
+    // Load game from save file
     public void LoadGame(string fileName)
     {
         string filePath = Path.Combine(saveFileDirectory, fileName);
-        if(File.Exists(filePath))
+        if (File.Exists(filePath))
         {
             SaveData saveData = JsonUtility.FromJson<SaveData>(File.ReadAllText(filePath));
 
-            GameObject.FindWithTag("Player").transform.position = saveData.playerPosition;
-            GameObject.FindWithTag("Player").GetComponent<Health>().SetHealth(saveData.currentHealth);
-            GameObject.FindWithTag("Player").GetComponent<PlayerWeaponController>().EquipWeapon(saveData.currentWeapon, null);
+            SaveDataToApply = saveData; // store for applying after scene loads
             UnityEngine.SceneManagement.SceneManager.LoadScene(saveData.currentSceneName);
         }
     }
 
+    // Get all save files in save directory
     public string[] GetSaveFiles()
     {
         return Directory.GetFiles(saveFileDirectory, "*.json");
+    }
+
+    // Resume game after pause
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
     }
 }
