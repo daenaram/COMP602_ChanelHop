@@ -5,27 +5,33 @@ using UnityEngine.UI;
 public class GameOverScript : MonoBehaviour
 {
     [SerializeField] private GameObject gameOver;
-    private Health playerHealth;
+    public Health playerHP;
+    private bool isGameOver;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        gameOver.SetActive(false); // Ensure the pause menu is inactive at the start
+        gameOver.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerHealth.isDead())
+        // show game over panel if player is dead
+        if (!isGameOver && playerHP != null && playerHP.dead) 
         {
-            gameOver.SetActive(true); // Activate the game over menu
-            Debug.Log("game over");
+            isGameOver = true;
+            gameOver.SetActive(true);
+            Time.timeScale = 0; // freeze the game
+            Debug.Log("Game Over triggered");
         }
+
     }
 
     public void revive()
     {
         Debug.Log("reviving");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1;
     }
 
     public void exit()
@@ -33,5 +39,7 @@ public class GameOverScript : MonoBehaviour
         Debug.Log("exiting");
         SceneManager.LoadScene("Menu");
     }
+
+    
 
 }

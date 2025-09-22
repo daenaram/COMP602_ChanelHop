@@ -55,7 +55,6 @@ public class Health : MonoBehaviour
     }
     //public void Respawn()
     //{
-    //    Debug.Log("respawning health.cs");
     //    dead = false;
     //    AddHealth(startingHealth);
     //    anim.ResetTrigger("die");
