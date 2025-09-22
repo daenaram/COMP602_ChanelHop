@@ -3,16 +3,22 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-
+    [Header("Health")]
     [SerializeField] private float startingHealth;
     public float currentHealth { get; private set; }
     private Animator anim;
     public bool dead;
 
+    [Header("Components to disable on death")]
+    [SerializeField] private Behaviour[] components;
+
+    private Rigidbody2D rb;
+
     private void Awake()
     {
         currentHealth = startingHealth;
         anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -42,13 +48,26 @@ public class Health : MonoBehaviour
                 if(GetComponent<MeleeEnemy>() != null)
                     GetComponent<MeleeEnemy>().enabled = false;
 
+                
+
+                BoxCollider2D box = GetComponent<BoxCollider2D>();
+                if (box != null)
+                    box.enabled = false;
+
+                if (rb != null)
+                {
+                    rb.linearVelocity = Vector2.zero;
+                    rb.bodyType = RigidbodyType2D.Kinematic; // stop physics from moving the player
+                }
+
+
                 dead = true;
             }
          
         }
     }
 
-    // Add health (reference to HealthCollectible script)
+    
     public void AddHealth(float _value)
     {
         currentHealth = Mathf.Clamp(currentHealth + _value, 0, startingHealth);
@@ -69,9 +88,31 @@ public class Health : MonoBehaviour
     //    if (GetComponentInParent<EnemyPatrol>() != null)
     //        GetComponentInParent<EnemyPatrol>().enabled = true;
 
+<<<<<<< HEAD
     //    if (GetComponent<MeleeEnemy>() != null)
     //        GetComponent<MeleeEnemy>().enabled = true;
     //}
 
     public bool isDead() { return dead; }
+=======
+        if (GetComponent<MeleeEnemy>() != null)
+            GetComponent<MeleeEnemy>().enabled = true;
+
+        // Re-enable collider
+        BoxCollider2D box = GetComponent<BoxCollider2D>();
+        if (box != null)
+            box.enabled = true;
+
+        // Reset Rigidbody velocity (important for player respawn)
+        if (rb != null)
+        {
+            rb.bodyType = RigidbodyType2D.Dynamic;
+            rb.linearVelocity = Vector2.zero;
+        }
+    }
+    public void SetHealth(float value)
+    {
+        currentHealth = Mathf.Clamp(value, 0, startingHealth);
+    }
+>>>>>>> main
 }

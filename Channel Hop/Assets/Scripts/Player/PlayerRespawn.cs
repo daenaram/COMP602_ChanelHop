@@ -8,7 +8,7 @@ public class PlayerRespawn : MonoBehaviour
 
     private void Awake()
     {
-        //playerHealth = GetComponent<Health>();
+        playerHealth = GetComponent<Health>();
     }
     //public void Respawn()
     //{
