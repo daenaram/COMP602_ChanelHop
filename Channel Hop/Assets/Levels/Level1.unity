@@ -6496,14 +6496,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b586c38506413e4182cf8fea3f2d928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1017125429}
-  lookAheadDistance: 2
-  cameraSpeed: 1
-  groundRayLength: 0.2
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  yOffSet: 2.5
+  player1: {fileID: 1017125429}
+  player2: {fileID: 2037637557}
+  smoothSpeed: 0
+  offset: {x: 0, y: 2, z: -10}
 --- !u!114 &394941744
 MonoBehaviour:
   m_ObjectHideFlags: 0
