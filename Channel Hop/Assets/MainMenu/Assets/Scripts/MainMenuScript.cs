@@ -5,6 +5,7 @@ public class MainMenuScript : MonoBehaviour
     public void onStartClick()
     {
         SceneManager.LoadScene("Level1");
+        Time.timeScale = 1f;  // Ensure game is unpaused
     }
     public void onExitClick()
     {

@@ -6,7 +6,7 @@ using UnityEngine;
 public class FloatingWeapon : MonoBehaviour
 {
     // Defines the available types of weapons that can be picked up
-    public enum WeaponType {  Sword, Axe, Staff, Bow, None }
+    public enum WeaponType {  None, Sword, Axe, Staff, Bow }
 
     // Movement and interaction settings
     [SerializeField] private float amplitude = 0.5f;    // Height of bobbing motion

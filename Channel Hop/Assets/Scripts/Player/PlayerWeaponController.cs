@@ -60,7 +60,9 @@ public class PlayerWeaponController : MonoBehaviour
 
         // Show the appropriate weapon sprite based on type
         switch (weaponType)
-        {
+        {   
+            case FloatingWeapon.WeaponType.None:
+                break;
             case FloatingWeapon.WeaponType.Sword:
                 if (prefabSword != null) prefabSword.enabled = true;
                 break;
@@ -73,6 +75,7 @@ public class PlayerWeaponController : MonoBehaviour
             case FloatingWeapon.WeaponType.Bow:
                 if (prefabBow != null) prefabBow.enabled = true;
                 break;
+            
         }
         
         hasWeapon = true;

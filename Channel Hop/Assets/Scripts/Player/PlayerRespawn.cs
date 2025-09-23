@@ -14,11 +14,10 @@ public class PlayerRespawn : MonoBehaviour
     {
         transform.position = currentCheckpoint.position;// Move player to checkpoint position
         playerHealth.Respawn();//restor player health
-        Debug.Log("respawning PlayerRespawn.cs");
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.transform.tag == "Checkpoint")
+        if (collision.transform.tag == "Checkpoint")
         {
             currentCheckpoint = collision.transform; // store checkpoint we activated as current checkpoint
             //SoundManager.instance.PlaySound(checkpointSound);
@@ -26,4 +25,19 @@ public class PlayerRespawn : MonoBehaviour
             collision.GetComponent<Animator>().SetTrigger("appear");// Trigger checkpoint animation using appear trigger
         }
     }
+
+    public Transform currentCheckpointPosition()
+    {
+        return currentCheckpoint;
+    }
+    public void SetCheckpointPosition(Vector3 pos)
+{
+    if (pos != Vector3.zero) // avoid default "no checkpoint"
+    {
+        GameObject checkpointObj = new GameObject("LoadedCheckpoint");
+        checkpointObj.transform.position = pos;
+        currentCheckpoint = checkpointObj.transform;
+    }
+}
+
 }

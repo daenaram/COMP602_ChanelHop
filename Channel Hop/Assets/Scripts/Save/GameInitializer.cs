@@ -8,6 +8,7 @@ public class GameInitializer : MonoBehaviour
         // Check if there is saved data to apply
         if (SaveController.SaveDataToApply != null)
         {
+            Time.timeScale = 1; // Ensure game is not paused
             SaveData data = SaveController.SaveDataToApply;
 
             // Find player in the scene
@@ -18,6 +19,9 @@ public class GameInitializer : MonoBehaviour
                 player.transform.position = data.playerPosition;
                 player.GetComponent<Health>().SetHealth(data.currentHealth);
                 player.GetComponent<PlayerWeaponController>().EquipWeapon(data.currentWeapon, null);
+                player.GetComponent<PlayerRespawn>().SetCheckpointPosition(data.checkpointPosition);
+
+                
             }
 
             // Clear static save data after applying
