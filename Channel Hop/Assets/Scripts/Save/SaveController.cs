@@ -40,23 +40,44 @@ public class SaveController : MonoBehaviour
     }
 
     // Save game to specified filename  
-    public void SaveGame(string fileName)
-    {
-        SaveData saveData = new SaveData()
-        {
-            playerPosition = GameObject.FindWithTag("Player").transform.position,
-            currentHealth = GameObject.FindWithTag("Player").GetComponent<Health>().currentHealth,
-            currentWeapon = GameObject.FindWithTag("Player").GetComponent<PlayerWeaponController>().GetCurrentWeaponType(),
-            currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name,
-            checkpointPosition = GameObject.FindWithTag("Player").GetComponent<PlayerRespawn>().currentCheckpointPosition() != null
-                ? GameObject.FindWithTag("Player").GetComponent<PlayerRespawn>().currentCheckpointPosition().position
-                : Vector3.zero
-        };
+public void SaveGame(string fileName)
+{
+    var p1 = GameObject.FindWithTag("Player1");
+    var p2 = GameObject.FindWithTag("Player2");
 
-        string filePath = Path.Combine(saveFileDirectory, fileName);
-        File.WriteAllText(filePath, JsonUtility.ToJson(saveData));
-        Debug.Log($"Game saved to: {filePath}");
+    if (p1 == null || p2 == null)
+    {
+        Debug.LogWarning("Save failed: Player1 or Player2 not found.");
+        return;
     }
+
+    var p1Respawn = p1.GetComponent<PlayerRespawn>();
+    var p2Respawn = p2.GetComponent<PlayerRespawn>();
+
+    SaveData saveData = new SaveData()
+    {
+        currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name,
+
+        playerPosition1 = p1.transform.position,
+        currentHealth1 = p1.GetComponent<Health>().currentHealth,
+        currentWeapon1 = p1.GetComponent<PlayerWeaponController>().GetCurrentWeaponType(),
+        checkpointPosition1 = p1Respawn.currentCheckpointPosition() != null
+            ? p1Respawn.currentCheckpointPosition().position
+            : Vector3.zero,
+
+        playerPosition2 = p2.transform.position,
+        currentHealth2 = p2.GetComponent<Health>().currentHealth,
+        currentWeapon2 = p2.GetComponent<PlayerWeaponController>().GetCurrentWeaponType(),
+        checkpointPosition2 = p2Respawn.currentCheckpointPosition() != null
+            ? p2Respawn.currentCheckpointPosition().position
+            : Vector3.zero
+    };
+
+    string filePath = Path.Combine(saveFileDirectory, fileName);
+    File.WriteAllText(filePath, JsonUtility.ToJson(saveData, true)); // pretty-print for debugging
+    Debug.Log($"Game saved to: {filePath}");
+}
+
 
     // Load game from save file
     public void LoadGame(string fileName)

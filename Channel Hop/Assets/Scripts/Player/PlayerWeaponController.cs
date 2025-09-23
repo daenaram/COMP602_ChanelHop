@@ -31,29 +31,26 @@ public class PlayerWeaponController : MonoBehaviour
 
     public void EquipWeapon(FloatingWeapon.WeaponType weaponType, FloatingWeapon floatingWeapon)
     {
-        if (hasWeapon && currentFloatingWeapon == floatingWeapon) return;
-
-        // Drop current weapon back into world
-        if (hasWeapon && currentFloatingWeapon != null)
-        {
-            currentFloatingWeapon.ReactivateWeapon();
-        }
-
         currentFloatingWeapon = floatingWeapon;
         equippedWeaponType = weaponType;
 
         DisableAllWeapons();
+
+        // Enable the correct sprite
         switch (weaponType)
         {
             case FloatingWeapon.WeaponType.Sword: if (prefabSword != null) prefabSword.enabled = true; break;
             case FloatingWeapon.WeaponType.Axe:   if (prefabAxe != null) prefabAxe.enabled = true; break;
             case FloatingWeapon.WeaponType.Staff: if (prefabStaff != null) prefabStaff.enabled = true; break;
             case FloatingWeapon.WeaponType.Bow:   if (prefabBow != null) prefabBow.enabled = true; break;
+            case FloatingWeapon.WeaponType.None:  break;
         }
 
-        hasWeapon = true;
+        // Only set hasWeapon true if weapon is not None
+        hasWeapon = weaponType != FloatingWeapon.WeaponType.None;
     }
 
+    
     public bool HasWeapon() => hasWeapon;
     public FloatingWeapon.WeaponType GetCurrentWeaponType() => equippedWeaponType;
 }
