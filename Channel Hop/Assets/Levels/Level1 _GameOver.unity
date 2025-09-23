@@ -4334,6 +4334,11 @@ MonoBehaviour:
   player: {fileID: 1050891731}
   lookAheadDistance: 2
   cameraSpeed: 1
+  groundRayLength: 0.2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  yOffSet: 0
 --- !u!1 &520399373
 GameObject:
   m_ObjectHideFlags: 0
@@ -8549,6 +8554,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 4
   dead: 0
+  components: []
 --- !u!114 &1050891738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8563,6 +8569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOver: {fileID: 717204708}
   playerHP: {fileID: 1050891737}
+  playerRespawn: {fileID: 1050891736}
 --- !u!1 &1053763115
 GameObject:
   m_ObjectHideFlags: 0

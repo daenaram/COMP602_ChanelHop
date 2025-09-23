@@ -107,6 +107,8 @@ public class Health : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Dynamic;
             rb.linearVelocity = Vector2.zero;
         }
+
+        Debug.Log("Respawning Health.cs");
     }
     public void SetHealth(float value)
     {
