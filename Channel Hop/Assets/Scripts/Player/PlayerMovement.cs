@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
             if (jumpInput && isGrounded())
                 Jump();
 
-            body.linearVelocity = new Vector2(horizontalInput * speed, body.velocity.y);
+            body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
 
             if (onWall() && !isGrounded())
             {
