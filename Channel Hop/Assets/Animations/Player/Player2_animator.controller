@@ -110,7 +110,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player
+  m_Name: Player2_animator
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: run
@@ -232,7 +232,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: f26032f6ae435fa4c8593ebced2420c1, type: 2}
+  m_Motion: {fileID: 7400000, guid: a210b66744587ee4e9dd5480a1ca17e1, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
