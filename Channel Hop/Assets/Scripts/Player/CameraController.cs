@@ -3,37 +3,22 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
 
-    [SerializeField] private Transform player;
-    [SerializeField] private float lookAheadDistance; // Distance the camera looks ahead of the player
-    [SerializeField] private float cameraSpeed;
-    [SerializeField] private float groundRayLength = 0.2f;
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private float yOffSet;
-
-    // Speed at which the camera moves
-    private float lookAhead; // Current look ahead distance
-    private bool isGrounded; // Whether the player is on the ground
+    [SerializeField] private Transform player1;
+    [SerializeField] private Transform player2;
+    [SerializeField] private float smoothSpeed = 0.125f;
+    [SerializeField] private Vector3 offset = Vector3.zero;
+  
     private Vector3 velocity = Vector3.zero; 
 
-    private void Update() // Runs continuously every frame
+    private void LateUpdate() // Runs continuously every frame
     {
-        isGrounded = IsPlayerGrounded();
+        if (player1 == null || player2 == null)
+            return;
 
-        float verticalPosition = Mathf.Lerp(transform.position.y, player.position.y + yOffSet, Time.deltaTime * cameraSpeed);
+        Vector3 midpoint = (player1.position + player2.position) / 2f;// Calculate the midpoint between the two players
+        Vector3 desiredPosition = midpoint + offset;
+        transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothSpeed);
 
-
-        transform.position = new Vector3(player.position.x + lookAhead, verticalPosition, transform.position.z);
-
-
-        lookAhead = Mathf.Lerp(lookAhead, (lookAheadDistance * player.localScale.x), Time.deltaTime * cameraSpeed); // [Change 4]
-
-        // time.deltatime makes it frame rate independent
-
-    }
-    private bool IsPlayerGrounded()
-    {
-        RaycastHit2D hit = Physics2D.Raycast(player.position, Vector2.down, groundRayLength, groundLayer);
-        return hit.collider != null;
     }
 
 
