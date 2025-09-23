@@ -6,7 +6,7 @@ public class Death_Pit : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the player entered the pit
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player2") || other.CompareTag("Player1"))
         {
             // Call the player's death or respawn method
             Health playerHealth = other.GetComponent<Health>();
