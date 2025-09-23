@@ -1,65 +1,58 @@
+// CHANNEL HOP
+
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public enum Player { Player1, Player2 }
-    public Player playerID = Player.Player1; // assign in Inspector per player
-
-    [SerializeField] private float speed;
+    [SerializeField] private float speed; // Speed of the player's movement
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
-
-    // add reference to player1 and max distance player2 can move
-    [SerializeField] private Transform player1; // assign Player 1 in Inspector
-    [SerializeField] private float maxDistance = 8f; // max horizontal distance Player 2 can move from Player 1
-
-    private Rigidbody2D body;
+    private Rigidbody2D body; // Reference to the RigidBody 2D component
     private Animator anim;
-    private BoxCollider2D boxCollider;
+    private BoxCollider2D boxCollider; // Reference to the BoxCollider2D component
     private float wallJumpCooldown;
 
-    private void Awake()
+    private void Awake() // Called everytime the script is loaded (game starts)
     {
-        body = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        //Grabs references for rigidbody and animator components
+        body = GetComponent<Rigidbody2D>(); // Get the RigidBody 2D component attached to this GameObject
+        anim = GetComponent<Animator>(); // Get the Animator component attached to this GameObject
         boxCollider = GetComponent<BoxCollider2D>();
     }
 
-    private void Update()
+    private void Update() // Runs continuously every frame
     {
-        float horizontalInput = 0f;
-        bool jumpInput = false;
+        float horizontalInput = Input.GetAxis("Horizontal"); // Get horizontal input from the player (A/D keys or Left/Right arrows)
 
-        // Assign controls based on player
-        if (playerID == Player.Player1)
-        {
-            horizontalInput = (Input.GetKey(KeyCode.D) ? 1 : 0) + (Input.GetKey(KeyCode.A) ? -1 : 0);
-            jumpInput = Input.GetKey(KeyCode.W);
-        }
-        else if (playerID == Player.Player2)
-        {
-            horizontalInput = (Input.GetKey(KeyCode.RightArrow) ? 1 : 0) + (Input.GetKey(KeyCode.LeftArrow) ? -1 : 0);
-            jumpInput = Input.GetKey(KeyCode.UpArrow);
-        }
-
-        // Flip sprite
+        //Flip the player sprite based on the direction of movement
         if (horizontalInput > 0.01f)
-            transform.localScale = new Vector3(1, 1, 1);
+        {
+          transform.localScale = new Vector3(1, 1, 1); // Face right when moving right. one on the x-axis, one on the y-axis, one on the z-axis
+        }
         else if (horizontalInput < -0.01f)
-            transform.localScale = new Vector3(-1, 1, 1);
+        {
+            transform.localScale = new Vector3(-1, 1, 1); // Face left when moving left. one on the x-axis, one on the y-axis, one on the z-axis
+        }
 
-        anim.SetBool("run", horizontalInput != 0);
-        anim.SetBool("grounded", isGrounded());
+        //Set animator parameters based on player input
+        anim.SetBool("run", horizontalInput != 0); //is one equal to zero? If not, set run to true else false
+        anim.SetBool("grounded", isGrounded()); // Set grounded parameter in animator based on the grounded variable
+
+        /* TESTING - console log the result of isGrounded and onWall
+        print(onWall());
+        */
 
         // Wall jump logic
-        if (wallJumpCooldown < 0.2f)
+        if(wallJumpCooldown < 0.2f)
         {
-            if (jumpInput && isGrounded())
-                Jump();
+            if (Input.GetKey(KeyCode.Space) && isGrounded())
+            {
+                Jump(); // Call the Jump method when the space key is pressed
+            }
 
-            body.linearVelocity = new Vector2(horizontalInput * speed, body.velocity.y);
+            body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y); // // Move player left/right horizontally 
 
-            if (onWall() && !isGrounded())
+            if(onWall() && !isGrounded())
             {
                 body.gravityScale = 1;
                 if (Mathf.Abs(horizontalInput) > 0)
@@ -75,39 +68,39 @@ public class PlayerMovement : MonoBehaviour
                 
             }
             else
+            {
                 body.gravityScale = 1;
+            }
         }
+
         else
         {
             wallJumpCooldown += Time.deltaTime;
         }
-
-        // clamp player2 - prevents moving too fat from player1
-        if (playerID == Player.Player2 && player1 != null)
-        {
-            float distance = transform.position.x - player1.position.x;
-
-            if (distance > maxDistance)
-                transform.position = new Vector3(player1.position.x + maxDistance, transform.position.y, transform.position.z);
-            else if (distance < -maxDistance)
-                transform.position = new Vector3(player1.position.x - maxDistance, transform.position.y, transform.position.z);
-        }
-
     }
 
     private void Jump()
     {
-        body.linearVelocity = new Vector2(body.linearVelocity.x, speed);
-        anim.SetTrigger("jump");
+        body.linearVelocity = new Vector2(body.linearVelocity.x, speed); // Move player up vertically when space is pressed
+        anim.SetTrigger("jump"); // Trigger the jump animation
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")// Ground is the tag assigned to the ground GameObject
+        {
+        }
     }
 
     private bool isGrounded()
     {
-        return Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.1f, groundLayer); // Uses ray casting to fire virtual laser in a certain direction
+        return raycastHit.collider != null;
     }
-
     private bool onWall()
     {
-        return Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.1f, wallLayer);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.1f, wallLayer); // Uses ray casting to fire virtual laser in a certain direction
+        return raycastHit.collider != null;
     }
+
 }
