@@ -20667,6 +20667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473fb90e0d9ba2341b7fadd452c0dbe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayer1: 1
   swordAttackSpeed: 0.3
   axeAttackSpeed: 1
   staffProjectileSpeed: 8
@@ -20676,7 +20677,6 @@ MonoBehaviour:
   arrowPrefab: {fileID: 3586903899358818713, guid: 8456a4deffa72d84aae20c87f29d9421, type: 3}
   swordSlashPrefab: {fileID: 4599840539083574084, guid: 9b32816e1429ab04d858fefbff402dd4, type: 3}
   axeSlashPrefab: {fileID: 1558609236971415832, guid: 3c96866de839e3c4ab0a0fff88f202e0, type: 3}
-  meleeRange: 1.5
   staffAoeRadius: 2
   swordRadius: 0.5
   axeRadius: 1
@@ -41932,6 +41932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473fb90e0d9ba2341b7fadd452c0dbe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayer1: 0
   swordAttackSpeed: 0.3
   axeAttackSpeed: 1
   staffProjectileSpeed: 8
@@ -41941,7 +41942,6 @@ MonoBehaviour:
   arrowPrefab: {fileID: 3586903899358818713, guid: 8456a4deffa72d84aae20c87f29d9421, type: 3}
   swordSlashPrefab: {fileID: 4599840539083574084, guid: 9b32816e1429ab04d858fefbff402dd4, type: 3}
   axeSlashPrefab: {fileID: 1558609236971415832, guid: 3c96866de839e3c4ab0a0fff88f202e0, type: 3}
-  meleeRange: 1.5
   staffAoeRadius: 2
   swordRadius: 0.5
   axeRadius: 1
