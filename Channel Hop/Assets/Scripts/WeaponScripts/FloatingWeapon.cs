@@ -74,6 +74,7 @@ public class FloatingWeapon : MonoBehaviour
             if (wasInRange != isInRange)
             {
                 overlayRenderer.enabled = isInRange;
+                Debug.Log("Player is " + (isInRange ? "in" : "out of") + " range of weapon: " + weaponType);
             }
         }
     }
