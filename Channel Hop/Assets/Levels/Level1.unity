@@ -2043,7 +2043,7 @@ MonoBehaviour:
   frequency: 1
   interactionRange: 0.75
   overlayRenderer: {fileID: 1773595157}
-  weaponType: 3
+  weaponType: 4
 --- !u!58 &99324073
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -10249,7 +10249,7 @@ SpriteRenderer:
   m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &542314688
@@ -17231,7 +17231,7 @@ MonoBehaviour:
   frequency: 1
   interactionRange: 0.75
   overlayRenderer: {fileID: 1751057682}
-  weaponType: 1
+  weaponType: 2
 --- !u!58 &828950048
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -18740,7 +18740,7 @@ MonoBehaviour:
   frequency: 1
   interactionRange: 0.75
   overlayRenderer: {fileID: 1081574678}
-  weaponType: 2
+  weaponType: 3
 --- !u!58 &912754624
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -24784,7 +24784,7 @@ MonoBehaviour:
   frequency: 1
   interactionRange: 0.75
   overlayRenderer: {fileID: 1296808451}
-  weaponType: 0
+  weaponType: 1
 --- !u!58 &1201374845
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -39,7 +39,7 @@ public class SaveController : MonoBehaviour
         }
     }
 
-    // Save game to specified filename
+    // Save game to specified filename  
     public void SaveGame(string fileName)
     {
         SaveData saveData = new SaveData
@@ -47,7 +47,10 @@ public class SaveController : MonoBehaviour
             playerPosition = GameObject.FindWithTag("Player").transform.position,
             currentHealth = GameObject.FindWithTag("Player").GetComponent<Health>().currentHealth,
             currentWeapon = GameObject.FindWithTag("Player").GetComponent<PlayerWeaponController>().GetCurrentWeaponType(),
-            currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
+            currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name,
+            checkpointPosition = GameObject.FindWithTag("Player").GetComponent<PlayerRespawn>().currentCheckpointPosition() != null
+                ? GameObject.FindWithTag("Player").GetComponent<PlayerRespawn>().currentCheckpointPosition().position
+                : Vector3.zero
         };
 
         string filePath = Path.Combine(saveFileDirectory, fileName);
