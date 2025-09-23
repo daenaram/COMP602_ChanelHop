@@ -10,12 +10,12 @@ public class PlayerRespawn : MonoBehaviour
     {
         playerHealth = GetComponent<Health>();
     }
-    //public void Respawn()
-    //{
-    //    transform.position = currentCheckpoint.position;// Move player to checkpoint position
-    //    playerHealth.Respawn();//restor player health
-    //    Debug.Log("respawning PlayerRespawn.cs");
-    //}
+    public void Respawn()
+    {
+       transform.position = currentCheckpoint.position;// Move player to checkpoint position
+       playerHealth.Respawn();//restor player health
+       Debug.Log("respawning PlayerRespawn.cs");
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.transform.tag == "Checkpoint")
