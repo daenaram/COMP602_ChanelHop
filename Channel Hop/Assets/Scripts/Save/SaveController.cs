@@ -42,7 +42,7 @@ public class SaveController : MonoBehaviour
     // Save game to specified filename
     public void SaveGame(string fileName)
     {
-        SaveData saveData = new SaveData
+        SaveData saveData = new SaveData()
         {
             playerPosition = GameObject.FindWithTag("Player").transform.position,
             currentHealth = GameObject.FindWithTag("Player").GetComponent<Health>().currentHealth,
