@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class PlayerAttackingScript : MonoBehaviour
 {
+    [Header("Player Settings")]
+    [SerializeField] private bool isPlayer1 = true; // Toggle in inspector
+
     [Header("Attack Settings")]
     [SerializeField] private float swordAttackSpeed = 0.3f;
     [SerializeField] private float axeAttackSpeed = 1f;
@@ -16,7 +19,6 @@ public class PlayerAttackingScript : MonoBehaviour
     [SerializeField] private GameObject axeSlashPrefab;
 
     [Header("Attack Ranges")]
-    [SerializeField] private float meleeRange = 1.5f;
     [SerializeField] private float staffAoeRadius = 2f;
     [SerializeField] private float swordRadius = 1f;
     [SerializeField] private float axeRadius = 1.5f;
@@ -35,9 +37,12 @@ public class PlayerAttackingScript : MonoBehaviour
     private float bowChargeStartTime = 0f;
     private bool isChargingBow = false;
 
+    private KeyCode attackKey;
+
     private void Start()
     {
         weaponController = GetComponent<PlayerWeaponController>();
+        attackKey = isPlayer1 ? KeyCode.F : KeyCode.RightControl;
     }
 
     private void Update()
@@ -52,39 +57,25 @@ public class PlayerAttackingScript : MonoBehaviour
 
         switch (weaponController.GetCurrentWeaponType())
         {
-            case FloatingWeapon.WeaponType.Sword:
-                HandleSwordAttack();
-                break;
-            case FloatingWeapon.WeaponType.Axe:
-                HandleAxeAttack();
-                break;
-            case FloatingWeapon.WeaponType.Staff:
-                HandleStaffAttack();
-                break;
-            case FloatingWeapon.WeaponType.Bow:
-                HandleBowAttack();
-                break;
+            case FloatingWeapon.WeaponType.Sword: HandleSwordAttack(); break;
+            case FloatingWeapon.WeaponType.Axe: HandleAxeAttack(); break;
+            case FloatingWeapon.WeaponType.Staff: HandleStaffAttack(); break;
+            case FloatingWeapon.WeaponType.Bow: HandleBowAttack(); break;
         }
     }
 
     private void HandleSwordAttack()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(attackKey))
         {
-            // Slash effect
             GameObject slashEffect = Instantiate(swordSlashPrefab, swordAttackPoint.position, swordAttackPoint.rotation);
             Destroy(slashEffect, 0.5f);
 
-            // Damage enemies
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(swordAttackPoint.position, swordRadius, enemyLayer);
             foreach (Collider2D enemy in hitEnemies)
             {
                 Health health = enemy.GetComponent<Health>();
-                if (health != null)
-                {
-                    health.TakeDamage(1);
-                    Debug.Log($"Sword hit: {enemy.name}");
-                }
+                if (health != null) health.TakeDamage(1);
             }
 
             nextAttackTime = Time.time + swordAttackSpeed;
@@ -93,22 +84,16 @@ public class PlayerAttackingScript : MonoBehaviour
 
     private void HandleAxeAttack()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(attackKey))
         {
-            // Slash effect
             GameObject slashEffect = Instantiate(axeSlashPrefab, axeAttackPoint.position, axeAttackPoint.rotation);
             Destroy(slashEffect, 0.8f);
 
-            // Damage enemies
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(axeAttackPoint.position, axeRadius, enemyLayer);
             foreach (Collider2D enemy in hitEnemies)
             {
                 Health health = enemy.GetComponent<Health>();
-                if (health != null)
-                {
-                    health.TakeDamage(2);
-                    Debug.Log($"Axe hit: {enemy.name}");
-                }
+                if (health != null) health.TakeDamage(2);
             }
 
             nextAttackTime = Time.time + axeAttackSpeed;
@@ -117,25 +102,15 @@ public class PlayerAttackingScript : MonoBehaviour
 
     private void HandleStaffAttack()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(attackKey))
         {
-            //facing direction
             float facingDirection = transform.localScale.x > 0 ? 1f : -1f;
             Vector3 shootDirection = new Vector3(facingDirection, 0f, 0f).normalized;
 
-          
             GameObject projectile = Instantiate(staffProjectilePrefab, rangedAttackPoint.position, Quaternion.identity);
-
-            //Apply velocity
             Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
             rb.linearVelocity = shootDirection * staffProjectileSpeed;
 
-           
-            SpriteRenderer projectileSprite = projectile.GetComponent<SpriteRenderer>();
-            if (projectileSprite != null)
-                projectileSprite.flipX = (facingDirection < 0);
-
-            
             StaffProjectile staffProj = projectile.AddComponent<StaffProjectile>();
             staffProj.Initialize(staffAoeRadius, 1);
 
@@ -145,12 +120,12 @@ public class PlayerAttackingScript : MonoBehaviour
 
     private void HandleBowAttack()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(attackKey))
         {
             isChargingBow = true;
             bowChargeStartTime = Time.time;
         }
-        else if (Input.GetKeyUp(KeyCode.F) && isChargingBow)
+        else if (Input.GetKeyUp(attackKey) && isChargingBow)
         {
             float chargeTime = Time.time - bowChargeStartTime;
             if (chargeTime >= bowChargeTime)
@@ -158,17 +133,10 @@ public class PlayerAttackingScript : MonoBehaviour
                 float facingDirection = transform.localScale.x > 0 ? 1f : -1f;
                 Vector3 shootDirection = Vector3.right * facingDirection;
 
-                // Spawn arrow
                 GameObject arrow = Instantiate(arrowPrefab, rangedAttackPoint.position, rangedAttackPoint.rotation);
                 Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
                 rb.linearVelocity = shootDirection * bowArrowSpeed;
 
-                // Flip sprite if needed
-                SpriteRenderer arrowSprite = arrow.GetComponent<SpriteRenderer>();
-                if (arrowSprite != null)
-                    arrowSprite.flipX = (facingDirection < 0);
-
-                // Add Arrow behaviour
                 Arrow arrowComp = arrow.AddComponent<Arrow>();
                 arrowComp.Initialize(2);
             }
@@ -185,27 +153,17 @@ public class PlayerAttackingScript : MonoBehaviour
         switch (weaponController.GetCurrentWeaponType())
         {
             case FloatingWeapon.WeaponType.Sword:
-                if (swordAttackPoint != null)
-                {
-                    Gizmos.color = Color.blue;
-                    Gizmos.DrawWireSphere(swordAttackPoint.position, swordRadius);
-                }
+                Gizmos.color = Color.blue;
+                Gizmos.DrawWireSphere(swordAttackPoint.position, swordRadius);
                 break;
             case FloatingWeapon.WeaponType.Axe:
-                if (axeAttackPoint != null)
-                {
-                    Gizmos.color = Color.red;
-                    Gizmos.DrawWireSphere(axeAttackPoint.position, axeRadius);
-                }
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(axeAttackPoint.position, axeRadius);
                 break;
             case FloatingWeapon.WeaponType.Staff:
-                if (rangedAttackPoint != null)
-                {
-                    Gizmos.color = Color.green;
-                    Gizmos.DrawWireSphere(rangedAttackPoint.position, staffAoeRadius);
-                }
+                Gizmos.color = Color.green;
+                Gizmos.DrawWireSphere(rangedAttackPoint.position, staffAoeRadius);
                 break;
         }
     }
 }
-

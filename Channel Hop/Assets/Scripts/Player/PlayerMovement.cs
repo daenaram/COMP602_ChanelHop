@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     public Player playerID = Player.Player1; // assign in Inspector per player
 
     [SerializeField] private float speed;
+    [SerializeField] private float jumpHeight;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
 
@@ -97,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        body.linearVelocity = new Vector2(body.linearVelocity.x, speed);
+        body.linearVelocity = new Vector2(body.linearVelocity.x, jumpHeight);
         anim.SetTrigger("jump");
     }
 

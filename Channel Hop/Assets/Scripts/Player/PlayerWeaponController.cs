@@ -1,33 +1,26 @@
 using UnityEngine;
 
-
-/// Controls the weapon system for the player, managing weapon pickups and displays
-
+/// Manages weapon pickups and displays for a specific player
 public class PlayerWeaponController : MonoBehaviour
 {
-    // References to the visual representations of each weapon type
     [Header("Weapon Renderers")]
     [SerializeField] private SpriteRenderer prefabSword;
     [SerializeField] private SpriteRenderer prefabAxe;
     [SerializeField] private SpriteRenderer prefabStaff;
     [SerializeField] private SpriteRenderer prefabBow;
 
-    // Tracks the currently equipped weapon type and its corresponding floating weapon
     private FloatingWeapon.WeaponType equippedWeaponType;
     private FloatingWeapon currentFloatingWeapon;
     private bool hasWeapon = false;
 
-    // Initialize weapon state when the script starts
     void Start()
     {
-        equippedWeaponType = FloatingWeapon.WeaponType.Sword;
+        equippedWeaponType = FloatingWeapon.WeaponType.None;
         currentFloatingWeapon = null;
         hasWeapon = false;
-        
         DisableAllWeapons();
     }
 
-    // Helper method to ensure all weapon sprites are hidden
     private void DisableAllWeapons()
     {
         if (prefabSword != null) prefabSword.enabled = false;
@@ -36,60 +29,28 @@ public class PlayerWeaponController : MonoBehaviour
         if (prefabBow != null) prefabBow.enabled = false;
     }
 
-    // Called when player attempts to pick up a weapon
     public void EquipWeapon(FloatingWeapon.WeaponType weaponType, FloatingWeapon floatingWeapon)
     {
-        // Prevent picking up the same weapon twice
-        if (hasWeapon && currentFloatingWeapon == floatingWeapon)
-        {
-            return;
-        }
-
-        // Drop current weapon if picking up a different one
-        if (hasWeapon && currentFloatingWeapon != null)
-        {
-            currentFloatingWeapon.ReactivateWeapon();
-        }
-
-        // Update weapon tracking variables
         currentFloatingWeapon = floatingWeapon;
         equippedWeaponType = weaponType;
 
-        // Hide all weapon sprites before showing the new one
         DisableAllWeapons();
 
-        // Show the appropriate weapon sprite based on type
+        // Enable the correct sprite
         switch (weaponType)
-        {   
-            case FloatingWeapon.WeaponType.None:
-                break;
-            case FloatingWeapon.WeaponType.Sword:
-                if (prefabSword != null) prefabSword.enabled = true;
-                break;
-            case FloatingWeapon.WeaponType.Axe:
-                if (prefabAxe != null) prefabAxe.enabled = true;
-                break;
-            case FloatingWeapon.WeaponType.Staff:
-                if (prefabStaff != null) prefabStaff.enabled = true;
-                break;
-            case FloatingWeapon.WeaponType.Bow:
-                if (prefabBow != null) prefabBow.enabled = true;
-                break;
-            
+        {
+            case FloatingWeapon.WeaponType.Sword: if (prefabSword != null) prefabSword.enabled = true; break;
+            case FloatingWeapon.WeaponType.Axe:   if (prefabAxe != null) prefabAxe.enabled = true; break;
+            case FloatingWeapon.WeaponType.Staff: if (prefabStaff != null) prefabStaff.enabled = true; break;
+            case FloatingWeapon.WeaponType.Bow:   if (prefabBow != null) prefabBow.enabled = true; break;
+            case FloatingWeapon.WeaponType.None:  break;
         }
-        
-        hasWeapon = true;
+
+        // Only set hasWeapon true if weapon is not None
+        hasWeapon = weaponType != FloatingWeapon.WeaponType.None;
     }
 
-    // Returns whether the player currently has a weapon equipped
-    public bool HasWeapon()
-    {
-        return hasWeapon;
-    }
-
-    // Returns the type of weapon currently equipped
-    public FloatingWeapon.WeaponType GetCurrentWeaponType()
-    {
-        return equippedWeaponType;
-    }
+    
+    public bool HasWeapon() => hasWeapon;
+    public FloatingWeapon.WeaponType GetCurrentWeaponType() => equippedWeaponType;
 }

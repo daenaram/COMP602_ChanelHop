@@ -20,8 +20,10 @@ public class SaveUI : MonoBehaviour
         confirmButton.onClick.AddListener(OnConfirmSave);
         backButton.onClick.AddListener(OnBack);
 
-        playerMovement = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>();
-        playerAttacking = GameObject.FindWithTag("Player").GetComponent<PlayerAttackingScript>();
+        playerMovement = GameObject.FindWithTag("Player1").GetComponent<PlayerMovement>();
+        playerAttacking = GameObject.FindWithTag("Player1").GetComponent<PlayerAttackingScript>();
+        playerMovement = GameObject.FindWithTag("Player2").GetComponent<PlayerMovement>();
+        playerAttacking = GameObject.FindWithTag("Player2").GetComponent<PlayerAttackingScript>();
     }
 
     void Update()
