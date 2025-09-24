@@ -14,15 +14,15 @@ public class PlayerRespawn : MonoBehaviour
     {
 
         transform.position = currentCheckpoint.position;// Move player to checkpoint position
-        playerHealth.Respawn();//restor player health
+        playerHealth.Respawn();//restore player health
+        Debug.Log($"Respawning {gameObject.name} at {transform.position}");
 
-        if(currentCheckpoint != null)
-        {
-            transform.position = currentCheckpoint.position;// Move player to checkpoint position
-            playerHealth.Respawn();//restor player health
+        //if (currentCheckpoint != null)
+        //{
+        //    transform.position = currentCheckpoint.position;// Move player to checkpoint position
+        //    playerHealth.Respawn();//restor player health
 
-            Debug.Log(transform.position);
-        }
+        //}
         
 
     }

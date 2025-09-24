@@ -5,25 +5,29 @@ using UnityEngine.UI;
 public class GameOverScript : MonoBehaviour
 {
     [SerializeField] private GameObject gameOver;
-    public Health playerHP;
+    [SerializeField] public Health player1HP;
+    [SerializeField] public Health player2HP;
+    [SerializeField] private PlayerRespawn player1Respawn;
+    [SerializeField] private PlayerRespawn player2Respawn;
     private bool isGameOver;
-    public PlayerRespawn playerRespawn;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         gameOver.SetActive(false);
-        playerRespawn = GetComponent<PlayerRespawn>();
     }
 
     // Update is called once per frame
     void Update()
     {
         // show game over panel if player is dead
-        if (!isGameOver && playerHP != null && playerHP.dead) 
+        if (!isGameOver &&
+        player1HP != null && player2HP != null &&
+        player1HP.dead && player2HP.dead)
         {
             isGameOver = true;
+            Time.timeScale = 0f;
             gameOver.SetActive(true);
-            Time.timeScale = 0; // freeze the game
             Debug.Log("Game Over triggered");
         }
 
@@ -31,15 +35,26 @@ public class GameOverScript : MonoBehaviour
 
     public void revive()
     {
-        Debug.Log("reviving");
+        Debug.Log("Reviving both players...");
         // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        if (playerRespawn != null)
+
+        if (player1Respawn != null)
         {
-            playerRespawn.Respawn();
-            Debug.Log("Player respawned from GameOverScript.cs");
-            gameOver.SetActive(false);
+            Debug.Log("Calling Player1Respawn.Respawn()");
+            player1Respawn.Respawn();
         }
+
+        if (player2Respawn != null)
+        {
+            Debug.Log("Calling Player2Respawn.Respawn()");
+            player2Respawn.Respawn();
+        }
+        // playerRespawn.Respawn();
         Time.timeScale = 1;
+        gameOver.SetActive(false);
+        isGameOver = false;
+        Debug.Log("Player respawned from GameOverScript.cs");
+        
     }
 
     public void exit()
