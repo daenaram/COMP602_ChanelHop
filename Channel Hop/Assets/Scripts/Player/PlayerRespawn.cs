@@ -12,6 +12,10 @@ public class PlayerRespawn : MonoBehaviour
     }
     public void Respawn()
     {
+
+        transform.position = currentCheckpoint.position;// Move player to checkpoint position
+        playerHealth.Respawn();//restor player health
+
         if(currentCheckpoint != null)
         {
             transform.position = currentCheckpoint.position;// Move player to checkpoint position
@@ -20,7 +24,7 @@ public class PlayerRespawn : MonoBehaviour
             Debug.Log(transform.position);
         }
         
-        
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
