@@ -6717,10 +6717,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b586c38506413e4182cf8fea3f2d928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 0}
-  player2: {fileID: 0}
+  player1: {fileID: 1323690539}
+  player2: {fileID: 1419578546}
   smoothSpeed: 0
   offset: {x: 0, y: 2, z: -10}
+  cam: {fileID: 394941746}
+  minZoom: 5
+  maxZoom: 10
+  zoomLimiter: 10
 --- !u!114 &394941744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16485,7 +16489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2d5233b4b98b3745948716817755383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 0}
+  playerHealth: {fileID: 1419578539}
   totalHealthBar: {fileID: 1921827820}
   currentHealthBar: {fileID: 1264744889}
 --- !u!1 &795062458
@@ -26534,7 +26538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2d5233b4b98b3745948716817755383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 0}
+  playerHealth: {fileID: 1323690532}
   totalHealthBar: {fileID: 1663151717}
   currentHealthBar: {fileID: 1999024384}
 --- !u!1 &1268393304
