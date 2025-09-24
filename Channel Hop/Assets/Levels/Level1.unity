@@ -7642,7 +7642,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
-<<<<<<< HEAD
 --- !u!1 &424978773
 GameObject:
   m_ObjectHideFlags: 0
@@ -7794,8 +7793,6 @@ MonoBehaviour:
   player2HP: {fileID: 2037637550}
   player1Respawn: {fileID: 1017125423}
   player2Respawn: {fileID: 2037637551}
-=======
->>>>>>> main
 --- !u!1 &430535386
 GameObject:
   m_ObjectHideFlags: 0
@@ -23801,7 +23798,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
-<<<<<<< HEAD
 --- !u!1001 &1108454892
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24017,8 +24013,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1110504546}
   m_CullTransparentMesh: 1
-=======
->>>>>>> main
 --- !u!1 &1115186428
 GameObject:
   m_ObjectHideFlags: 0
@@ -47303,8 +47297,5 @@ SceneRoots:
   - {fileID: 1050968879}
   - {fileID: 2141949115}
   - {fileID: 1020558555}
-<<<<<<< HEAD
   - {fileID: 427601810}
-=======
   - {fileID: 220747351}
->>>>>>> main
