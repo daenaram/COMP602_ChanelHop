@@ -8,6 +8,7 @@ public class Health : MonoBehaviour
     public float currentHealth { get; private set; }
     private Animator anim;
     public bool dead;
+    private bool forceStayDead = false;
 
     [Header("Components to disable on death")]
     [SerializeField] private Behaviour[] components;
@@ -24,6 +25,7 @@ public class Health : MonoBehaviour
     // Update is called once per frame
     public void TakeDamage(float _damage)
     {
+        if (forceStayDead) return; // prevent any further interaction
         currentHealth = Mathf.Clamp(currentHealth - _damage, 0, startingHealth);
         
         if(currentHealth > 0)
@@ -62,6 +64,8 @@ public class Health : MonoBehaviour
 
 
                 dead = true;
+                forceStayDead = true; // ensure the player remains dead
+                Debug.Log($"{gameObject.name} has died and is locked dead.");   
             }
          
         }
@@ -74,6 +78,7 @@ public class Health : MonoBehaviour
     }
     public void Respawn()
     {
+        forceStayDead = false; // allow interaction again
         dead = false;
         AddHealth(startingHealth);
         anim.ResetTrigger("die");
@@ -92,9 +97,8 @@ public class Health : MonoBehaviour
         if (GetComponent<MeleeEnemy>() != null)
             GetComponent<MeleeEnemy>().enabled = true;
 
-
-        if (GetComponent<MeleeEnemy>() != null)
-            GetComponent<MeleeEnemy>().enabled = true;
+        //if (GetComponent<MeleeEnemy>() != null)
+        //    GetComponent<MeleeEnemy>().enabled = true;
 
         // Re-enable collider
         BoxCollider2D box = GetComponent<BoxCollider2D>();
@@ -108,7 +112,7 @@ public class Health : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
         }
 
-        Debug.Log("Respawning Health.cs");
+        Debug.Log($"Respawning {gameObject.name} in Health.cs");
     }
     public void SetHealth(float value)
     {
