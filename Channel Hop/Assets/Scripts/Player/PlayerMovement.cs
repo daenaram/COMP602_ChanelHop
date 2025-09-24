@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
+    [SerializeField] private LayerMask playerLayer;
 
     // add reference to player1 and max distance player2 can move
     [SerializeField] private Transform player1; // assign Player 1 in Inspector
@@ -55,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
         // Wall jump logic
         if (wallJumpCooldown < 0.2f)
         {
-            if (jumpInput && isGrounded())
+            if (jumpInput && (isGrounded() || onPlayer()))
                 Jump();
 
             body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
@@ -105,6 +106,14 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded()
     {
         return Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
+    }
+    private bool onPlayer()
+    {
+        Vector2 origin = new Vector2(boxCollider.bounds.center.x, boxCollider.bounds.min.y);
+        float rayLength = 0.1f;
+        RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, rayLength, playerLayer);// Cast a ray downwards from the bottom center of the box collider
+        Debug.DrawRay(origin, Vector2.down * rayLength, Color.red); // Visualize the ray in the Scene view
+        return  hit.collider != null;// Return true if the ray hits a collider on the player layer
     }
 
     private bool onWall()
