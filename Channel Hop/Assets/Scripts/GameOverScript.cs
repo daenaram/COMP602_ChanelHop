@@ -21,9 +21,7 @@ public class GameOverScript : MonoBehaviour
     void Update()
     {
         // show game over panel if player is dead
-        if (!isGameOver &&
-        player1HP != null && player2HP != null &&
-        player1HP.dead && player2HP.dead)
+        if (player1HP.dead && player2HP.dead)
         {
             isGameOver = true;
             Time.timeScale = 0f;
@@ -31,30 +29,24 @@ public class GameOverScript : MonoBehaviour
             Debug.Log("Game Over triggered");
         }
 
+
     }
 
     public void revive()
     {
-        Debug.Log("Reviving both players...");
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        isGameOver = false; // lock immediately
+        Debug.Log("Revive() CALLED");
 
         if (player1Respawn != null)
-        {
-            Debug.Log("Calling Player1Respawn.Respawn()");
             player1Respawn.Respawn();
-        }
 
         if (player2Respawn != null)
-        {
-            Debug.Log("Calling Player2Respawn.Respawn()");
             player2Respawn.Respawn();
-        }
-        // playerRespawn.Respawn();
+
         Time.timeScale = 1;
         gameOver.SetActive(false);
-        isGameOver = false;
-        Debug.Log("Player respawned from GameOverScript.cs");
-        
+
     }
 
     public void exit()
@@ -63,6 +55,5 @@ public class GameOverScript : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
-    
 
 }

@@ -12,18 +12,13 @@ public class PlayerRespawn : MonoBehaviour
     }
     public void Respawn()
     {
-
-        transform.position = currentCheckpoint.position;// Move player to checkpoint position
-        playerHealth.Respawn();//restore player health
-        Debug.Log($"Respawning {gameObject.name} at {transform.position}");
+        Debug.Log($"PlayerRespawn called for {gameObject.name}");
 
         //if (currentCheckpoint != null)
         //{
-        //    transform.position = currentCheckpoint.position;// Move player to checkpoint position
-        //    playerHealth.Respawn();//restor player health
-
+        //    transform.position = currentCheckpoint.position;
+        //    playerHealth.Respawn();
         //}
-        
 
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -42,13 +37,13 @@ public class PlayerRespawn : MonoBehaviour
         return currentCheckpoint;
     }
     public void SetCheckpointPosition(Vector3 pos)
-{
-    if (pos != Vector3.zero) // avoid default "no checkpoint"
     {
-        GameObject checkpointObj = new GameObject("LoadedCheckpoint");
-        checkpointObj.transform.position = pos;
-        currentCheckpoint = checkpointObj.transform;
+        if (pos != Vector3.zero) // avoid default "no checkpoint"
+        {
+            GameObject checkpointObj = new GameObject("LoadedCheckpoint");
+            checkpointObj.transform.position = pos; // Set position to loaded checkpoint position
+            currentCheckpoint = checkpointObj.transform; // Update currentCheckpoint to the new transform
+        }
     }
-}
 
 }
