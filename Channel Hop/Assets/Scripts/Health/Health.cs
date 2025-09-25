@@ -4,10 +4,11 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [Header("Health")]
-    [SerializeField] private float startingHealth;
+    [SerializeField] public float startingHealth;
     public float currentHealth { get; private set; }
     private Animator anim;
     public bool dead;
+    public GameOverScript gameOver;
 
     [Header("Components to disable on death")]
     [SerializeField] private Behaviour[] components;
@@ -19,6 +20,7 @@ public class Health : MonoBehaviour
         currentHealth = startingHealth;
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        gameOver = Object.FindAnyObjectByType<GameOverScript>();
     }
 
     // Update is called once per frame
@@ -38,7 +40,15 @@ public class Health : MonoBehaviour
             {
                 // player dead
                 anim.SetTrigger("die");
+                dead = true;
                 Debug.Log($"Dead called for {gameObject.name}");
+
+                if (gameOver != null)
+                {
+                    gameOver.activateGameOver();
+                    Debug.Log("GameOver from Health");
+
+                }
 
                 if (GetComponent<PlayerMovement>() != null)
                     GetComponent<PlayerMovement>().enabled = false;
@@ -62,7 +72,9 @@ public class Health : MonoBehaviour
                 }
 
 
-                dead = true;
+                
+
+
             }
 
         }
@@ -77,10 +89,10 @@ public class Health : MonoBehaviour
     {
         Debug.Log($"Health called for {gameObject.name}");
         dead = false;
-        AddHealth(startingHealth);
-        anim.ResetTrigger("die");
-        anim.Play("Idle");
-        //StartCoroutine(Invunerability());// this is optional
+        // AddHealth(startingHealth);
+        // anim.ResetTrigger("die");
+        // anim.Play("Idle");
+        // StartCoroutine(Invunerability());// this is optional
 
         /*foreach (Behaviour component in components)
             component.enabled = true; NOT YET IMPLEMENTED*/
@@ -94,9 +106,6 @@ public class Health : MonoBehaviour
         if (GetComponent<MeleeEnemy>() != null)
             GetComponent<MeleeEnemy>().enabled = true;
 
-
-        if (GetComponent<MeleeEnemy>() != null)
-            GetComponent<MeleeEnemy>().enabled = true;
 
         // Re-enable collider
         BoxCollider2D box = GetComponent<BoxCollider2D>();

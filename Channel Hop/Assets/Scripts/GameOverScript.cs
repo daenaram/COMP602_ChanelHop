@@ -9,12 +9,16 @@ public class GameOverScript : MonoBehaviour
     [SerializeField] public Health player2HP;
     [SerializeField] private PlayerRespawn player1Respawn;
     [SerializeField] private PlayerRespawn player2Respawn;
-    private bool isGameOver;
+    private Health hp;
+    public bool isGameOver = false;
+    private Animator anim;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         gameOver.SetActive(false);
+        anim = GetComponent<Animator>();
+       //float healthStart = hp.startingHealth; 
     }
 
     // Update is called once per frame
@@ -28,8 +32,7 @@ public class GameOverScript : MonoBehaviour
             gameOver.SetActive(true);
             Debug.Log("Game Over triggered");
         }
-
-
+        
     }
 
     public void revive()
@@ -44,6 +47,9 @@ public class GameOverScript : MonoBehaviour
         if (player2Respawn != null)
             player2Respawn.Respawn();
 
+        hp.SetHealth(hp.startingHealth);
+        anim.ResetTrigger("die");
+        anim.Play("Idle");
         Time.timeScale = 1;
         gameOver.SetActive(false);
 
@@ -53,6 +59,11 @@ public class GameOverScript : MonoBehaviour
     {
         Debug.Log("exiting");
         SceneManager.LoadScene("Menu");
+    }
+
+    public void activateGameOver()
+    {
+        gameOver.SetActive(true);
     }
 
 

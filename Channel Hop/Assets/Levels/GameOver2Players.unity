@@ -7783,7 +7783,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 427601806}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6586bc60df48404db049ccfa2fab3fb, type: 3}
   m_Name: 
@@ -7793,6 +7793,7 @@ MonoBehaviour:
   player2HP: {fileID: 1419578539}
   player1Respawn: {fileID: 1323690533}
   player2Respawn: {fileID: 1419578540}
+  isGameOver: 0
 --- !u!1 &430535386
 GameObject:
   m_ObjectHideFlags: 0
@@ -28289,6 +28290,7 @@ GameObject:
   - component: {fileID: 1323690532}
   - component: {fileID: 1323690531}
   - component: {fileID: 1323690530}
+  - component: {fileID: 1323690540}
   m_Layer: 8
   m_Name: Player1
   m_TagString: Player1
@@ -28358,6 +28360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 4
   dead: 0
+  gameOver: {fileID: 0}
   components: []
 --- !u!114 &1323690533
 MonoBehaviour:
@@ -28565,6 +28568,24 @@ Transform:
   - {fileID: 1229776595}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1323690540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323690529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6586bc60df48404db049ccfa2fab3fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOver: {fileID: 427601806}
+  player1HP: {fileID: 1323690532}
+  player2HP: {fileID: 1419578539}
+  player1Respawn: {fileID: 1323690533}
+  player2Respawn: {fileID: 1419578540}
+  isGameOver: 0
 --- !u!1 &1327698494
 GameObject:
   m_ObjectHideFlags: 0
@@ -29973,6 +29994,7 @@ GameObject:
   - component: {fileID: 1419578539}
   - component: {fileID: 1419578538}
   - component: {fileID: 1419578537}
+  - component: {fileID: 1419578547}
   m_Layer: 8
   m_Name: Player2
   m_TagString: Player2
@@ -30042,6 +30064,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 4
   dead: 0
+  gameOver: {fileID: 0}
   components: []
 --- !u!114 &1419578540
 MonoBehaviour:
@@ -30249,6 +30272,24 @@ Transform:
   - {fileID: 338589642}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1419578547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419578536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6586bc60df48404db049ccfa2fab3fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOver: {fileID: 427601806}
+  player1HP: {fileID: 1323690532}
+  player2HP: {fileID: 1419578539}
+  player1Respawn: {fileID: 1323690533}
+  player2Respawn: {fileID: 1419578540}
+  isGameOver: 0
 --- !u!1 &1419815279
 GameObject:
   m_ObjectHideFlags: 0
