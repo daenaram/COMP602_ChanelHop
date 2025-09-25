@@ -54,6 +54,8 @@ public class GameOverScript : MonoBehaviour
 
     public void revive()
     {
+        Time.timeScale = 1f;
+        isRevived = true;
         isGameOver = false;
         gameOver.SetActive(false);
 
@@ -70,8 +72,7 @@ public class GameOverScript : MonoBehaviour
         player2Anim.ResetTrigger("die");
         player2Anim.Play("Idle"); ;
 
-        Time.timeScale = 1f;
-        isRevived = true;
+
 
         Debug.Log("Revive called from GameOverScript");
 
