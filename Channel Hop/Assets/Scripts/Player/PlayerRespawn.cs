@@ -5,20 +5,25 @@ public class PlayerRespawn : MonoBehaviour
     [SerializeField] private AudioClip checkpointSound; //sound that play when picking up a new checkpoint
     private static Transform currentCheckpoint; //we'll store our last checkpoint here
     private Health playerHealth;
+    private GameOverScript GameOver;
 
     private void Awake()
     {
         playerHealth = GetComponent<Health>();
+        GameOver = GetComponent<GameOverScript>();
     }
     public void Respawn()
     {
         Debug.Log($"PlayerRespawn called for {gameObject.name}");
+        if (GameOver.getRevived())
+        {
+            if (currentCheckpoint != null)
+            {
+                transform.position = currentCheckpoint.position;
+                playerHealth.Respawn();
+            }
 
-        //if (currentCheckpoint != null)
-        //{
-        //    transform.position = currentCheckpoint.position;
-        //    playerHealth.Respawn();
-        //}
+        }
 
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -45,5 +50,10 @@ public class PlayerRespawn : MonoBehaviour
             currentCheckpoint = checkpointObj.transform; // Update currentCheckpoint to the new transform
         }
     }
+    public void SetGameOver(GameOverScript go)
+    {
+        GameOver = go;
+    }
+
 
 }
