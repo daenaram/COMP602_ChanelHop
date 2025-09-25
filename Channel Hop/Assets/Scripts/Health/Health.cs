@@ -43,12 +43,6 @@ public class Health : MonoBehaviour
                 dead = true;
                 Debug.Log($"Dead called for {gameObject.name}");
 
-                if (gameOver != null)
-                {
-                    gameOver.activateGameOver();
-                    Debug.Log("GameOver from Health");
-
-                }
 
                 if (GetComponent<PlayerMovement>() != null)
                     GetComponent<PlayerMovement>().enabled = false;

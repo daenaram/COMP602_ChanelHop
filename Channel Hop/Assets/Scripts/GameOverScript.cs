@@ -35,7 +35,7 @@ public class GameOverScript : MonoBehaviour
 
     void Update()
     {
-        if (player1HP.dead || player2HP.dead)
+        if (GameObject.FindWithTag("Player1").GetComponent<Health>().dead || GameObject.FindWithTag("Player2").GetComponent<Health>().dead)
         {
             isGameOver = true;
             Time.timeScale = 0f;
