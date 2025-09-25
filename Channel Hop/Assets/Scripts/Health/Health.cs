@@ -4,11 +4,11 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [Header("Health")]
-    [SerializeField] private float startingHealth;
+    [SerializeField] public float startingHealth;
     public float currentHealth { get; private set; }
     private Animator anim;
     public bool dead;
-    private bool forceStayDead = false;
+    public GameOverScript gameOver;
 
     [Header("Components to disable on death")]
     [SerializeField] private Behaviour[] components;
@@ -20,37 +20,46 @@ public class Health : MonoBehaviour
         currentHealth = startingHealth;
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        gameOver = Object.FindAnyObjectByType<GameOverScript>();
     }
 
     // Update is called once per frame
     public void TakeDamage(float _damage)
     {
-        if (forceStayDead) return; // prevent any further interaction
         currentHealth = Mathf.Clamp(currentHealth - _damage, 0, startingHealth);
-        
-        if(currentHealth > 0)
+
+        if (currentHealth > 0)
         {
             // player hurt
             anim.SetTrigger("hurt");
             // iframes
-        } 
+        }
         else
         {
-            if(!dead)
+            if (!dead)
             {
                 // player dead
                 anim.SetTrigger("die");
+                dead = true;
+                Debug.Log($"Dead called for {gameObject.name}");
 
-                if(GetComponent<PlayerMovement>() != null)
+                if (gameOver != null)
+                {
+                    gameOver.activateGameOver();
+                    Debug.Log("GameOver from Health");
+
+                }
+
+                if (GetComponent<PlayerMovement>() != null)
                     GetComponent<PlayerMovement>().enabled = false;
-                
-                if(GetComponentInParent<EnemyPatrol>() != null)
+
+                if (GetComponentInParent<EnemyPatrol>() != null)
                     GetComponentInParent<EnemyPatrol>().enabled = false;
 
-                if(GetComponent<MeleeEnemy>() != null)
+                if (GetComponent<MeleeEnemy>() != null)
                     GetComponent<MeleeEnemy>().enabled = false;
 
-                
+
 
                 BoxCollider2D box = GetComponent<BoxCollider2D>();
                 if (box != null)
@@ -63,27 +72,24 @@ public class Health : MonoBehaviour
                 }
 
 
-                dead = true;
-                forceStayDead = true; // ensure the player remains dead
-                Debug.Log($"{gameObject.name} has died and is locked dead.");   
             }
-         
+
         }
     }
 
-    
+
     public void AddHealth(float _value)
     {
         currentHealth = Mathf.Clamp(currentHealth + _value, 0, startingHealth);
     }
     public void Respawn()
     {
-        forceStayDead = false; // allow interaction again
+        Debug.Log($"Health called for {gameObject.name}");
         dead = false;
-        AddHealth(startingHealth);
-        anim.ResetTrigger("die");
-        anim.Play("Idle");
-        //StartCoroutine(Invunerability());// this is optional
+        // AddHealth(startingHealth);
+        // anim.ResetTrigger("die");
+        // anim.Play("Idle");
+        // StartCoroutine(Invunerability());// this is optional
 
         /*foreach (Behaviour component in components)
             component.enabled = true; NOT YET IMPLEMENTED*/
@@ -97,8 +103,6 @@ public class Health : MonoBehaviour
         if (GetComponent<MeleeEnemy>() != null)
             GetComponent<MeleeEnemy>().enabled = true;
 
-        //if (GetComponent<MeleeEnemy>() != null)
-        //    GetComponent<MeleeEnemy>().enabled = true;
 
         // Re-enable collider
         BoxCollider2D box = GetComponent<BoxCollider2D>();
@@ -111,8 +115,6 @@ public class Health : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Dynamic;
             rb.linearVelocity = Vector2.zero;
         }
-
-        Debug.Log($"Respawning {gameObject.name} in Health.cs");
     }
     public void SetHealth(float value)
     {
