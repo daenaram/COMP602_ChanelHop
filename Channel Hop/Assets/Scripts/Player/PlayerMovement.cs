@@ -5,7 +5,7 @@ public class PlayerMovement : MonoBehaviour
     public enum Player { Player1, Player2 }
     public Player playerID = Player.Player1; // assign in Inspector per player
 
-    [SerializeField] private float speed;
+    [SerializeField] public float speed;
     [SerializeField] private float jumpHeight;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
