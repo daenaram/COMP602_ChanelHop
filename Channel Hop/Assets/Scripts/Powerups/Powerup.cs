@@ -1,5 +1,3 @@
-// attach this script to game object
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,16 +6,15 @@ public class Powerup : MonoBehaviour
 {
     public PowerupEffect powerupEffect;
 
-    // when player collides with fruit speed power up 
-
-
     private void OnTriggerEnter2D(Collider2D collision)
-    {
+    { 
 
-        // check here for player/enemy
-        // if block to apply speed buff
+        // check if player is the collider with fruit
+        if(collision.CompareTag("Player1") || collision.CompareTag("Player2"))
+        {
+            powerupEffect.Apply(collision.gameObject);
+            Destroy(gameObject);
+        }
 
-        Destroy(gameObject);
-        powerupEffect.Apply(collision.gameObject);
     }
 }
