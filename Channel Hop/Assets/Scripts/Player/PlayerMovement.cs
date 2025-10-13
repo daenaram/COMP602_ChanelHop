@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -111,4 +112,21 @@ public class PlayerMovement : MonoBehaviour
     {
         return Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.1f, wallLayer);
     }
+
+
+    // speed buffs
+    public void ApplySpeedBuff(float amount, float duration)
+    {
+        StartCoroutine(SpeedBuff(amount, duration));
+    }
+
+    private IEnumerator SpeedBuff(float amount, float duration)
+    {
+        speed += amount;
+        yield return new WaitForSeconds(duration);
+        speed -= amount;
+        GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
+
 }

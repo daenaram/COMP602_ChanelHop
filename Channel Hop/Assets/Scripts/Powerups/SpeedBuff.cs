@@ -10,7 +10,7 @@ public class SpeedBuff : PowerupEffect
 
     public override void Apply(GameObject target)
     {
-        target.GetComponent<PlayerMovement>().speed += amount;
         target.GetComponent<SpriteRenderer>().color = Color.yellow;
+        target.GetComponent<PlayerMovement>().ApplySpeedBuff(amount, 10f); // 10 sec
     }
 }
