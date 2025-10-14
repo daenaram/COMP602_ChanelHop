@@ -3987,7 +3987,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &493182128
 Transform:
   m_ObjectHideFlags: 0
@@ -4331,14 +4331,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b586c38506413e4182cf8fea3f2d928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1050891731}
-  lookAheadDistance: 2
-  cameraSpeed: 1
-  groundRayLength: 0.2
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  yOffSet: 0
+  player1: {fileID: 0}
+  player2: {fileID: 0}
+  smoothSpeed: 0.125
+  offset: {x: 0, y: 0, z: 0}
+  cam: {fileID: 0}
+  minZoom: 5
+  maxZoom: 10
+  zoomLimiter: 10
 --- !u!1 &520399373
 GameObject:
   m_ObjectHideFlags: 0
@@ -6414,7 +6414,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &717204709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8498,13 +8498,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb83d498b4618c44d81099dadbc81e0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerID: 0
   speed: 5
+  jumpHeight: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   wallLayer:
     serializedVersion: 2
     m_Bits: 128
+  player1: {fileID: 0}
+  maxDistance: 8
 --- !u!95 &1050891735
 Animator:
   serializedVersion: 7
@@ -8554,6 +8558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 4
   dead: 0
+  gameOver: {fileID: 0}
   components: []
 --- !u!114 &1050891738
 MonoBehaviour:
@@ -8568,8 +8573,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOver: {fileID: 717204708}
-  playerHP: {fileID: 1050891737}
-  playerRespawn: {fileID: 1050891736}
+  exitPopUp: {fileID: 0}
+  player1HP: {fileID: 0}
+  player2HP: {fileID: 0}
+  player1Respawn: {fileID: 0}
+  player2Respawn: {fileID: 0}
+  isGameOver: 0
 --- !u!1 &1053763115
 GameObject:
   m_ObjectHideFlags: 0
