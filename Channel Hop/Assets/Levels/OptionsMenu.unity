@@ -224,7 +224,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a74f645b5273f4ea5fe230275c3d00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundMusic: {fileID: 8300000, guid: 89717dc9136bb5a418947e8682a4289a, type: 3}
+  menuMusic: {fileID: 8300000, guid: 89717dc9136bb5a418947e8682a4289a, type: 3}
+  gameMusic: {fileID: 8300000, guid: a6a4444419586364ea0b634059e12cc1, type: 3}
   musicVolumeSlider: {fileID: 486908760}
 --- !u!82 &247444425
 AudioSource:
