@@ -10,11 +10,11 @@ public class MovingPlatform : MonoBehaviour
     private
     void Start()
     {
-        transform.position = points[startPoint].position;// Set initial position to the starting point
+        transform.position = points[startPoint].position;//Set initial position to the starting point
         Debug.Log("Starting at point: " + startPoint);
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         if (Vector2.Distance(transform.position, points[i].position) < 0.02f)
