@@ -50,7 +50,10 @@ public class PlayerWeaponController : MonoBehaviour
         hasWeapon = weaponType != FloatingWeapon.WeaponType.None;
     }
 
-    
     public bool HasWeapon() => hasWeapon;
     public FloatingWeapon.WeaponType GetCurrentWeaponType() => equippedWeaponType;
+    public FloatingWeapon GetCurrentWeapon()
+    {
+        return currentFloatingWeapon;
+    }
 }
