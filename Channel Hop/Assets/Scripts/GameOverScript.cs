@@ -13,22 +13,22 @@ public class GameOverScript : MonoBehaviour
     [SerializeField] SaveUI saveUI;
     [SerializeField] private SaveController saveController;
     public bool isGameOver = false;
-    //private PlayerMovement player1Movement;
-    //private PlayerMovement player2Movement;
-    //private PlayerAttackingScript player1Attacking;
-    //private PlayerAttackingScript player2Attacking;
+    private PlayerMovement player1Movement;
+    private PlayerMovement player2Movement;
+    private PlayerAttackingScript player1Attacking;
+    private PlayerAttackingScript player2Attacking;
     private bool isRevived = false;
     private Animator player1Anim;
     private Animator player2Anim;
 
     void Start()
     {
-        //player1Movement = GameObject.FindWithTag("Player1").GetComponent<PlayerMovement>();
-        //player1Attacking = GameObject.FindWithTag("Player1").GetComponent<PlayerAttackingScript>();
+        player1Movement = GameObject.FindWithTag("Player1").GetComponent<PlayerMovement>();
+        player1Attacking = GameObject.FindWithTag("Player1").GetComponent<PlayerAttackingScript>();
         player1Anim = GameObject.FindWithTag("Player1").GetComponent<Animator>();
 
-        //player2Movement = GameObject.FindWithTag("Player2").GetComponent<PlayerMovement>();
-        //player2Attacking = GameObject.FindWithTag("Player2").GetComponent<PlayerAttackingScript>();
+        player2Movement = GameObject.FindWithTag("Player2").GetComponent<PlayerMovement>();
+        player2Attacking = GameObject.FindWithTag("Player2").GetComponent<PlayerAttackingScript>();
         player2Anim = GameObject.FindWithTag("Player2").GetComponent<Animator>();
 
         player1Respawn.SetGameOver(this);
@@ -44,6 +44,7 @@ public class GameOverScript : MonoBehaviour
             isGameOver = true;
             Time.timeScale = 0f;
             gameOver.SetActive(true);
+            DisablePlayerInput();
         }
     }
 
@@ -59,6 +60,8 @@ public class GameOverScript : MonoBehaviour
 
         player1HP.SetHealth(player1HP.startingHealth);
         player2HP.SetHealth(player2HP.startingHealth);
+
+        EnablePlayerInput();
 
         //AddHealth(startingHealth);
         player1Anim.ResetTrigger("die");
@@ -87,21 +90,21 @@ public class GameOverScript : MonoBehaviour
     {
         gameOver.SetActive(true);
     }
-    //private void DisablePlayerInput()
-    //{
-    //    if (player1Movement != null) player1Movement.enabled = false;
-    //    if (player1Attacking != null) player1Attacking.enabled = false;
-    //    if (player2Movement != null) player2Movement.enabled = false;
-    //    if (player2Attacking != null) player2Attacking.enabled = false;
-    //}
+    private void DisablePlayerInput()
+    {
+        if (player1Movement != null) player1Movement.enabled = false;
+        if (player1Attacking != null) player1Attacking.enabled = false;
+        if (player2Movement != null) player2Movement.enabled = false;
+        if (player2Attacking != null) player2Attacking.enabled = false;
+    }
 
-    //private void EnablePlayerInput()
-    //{
-    //    if (player1Movement != null) player1Movement.enabled = true;
-    //    if (player1Attacking != null) player1Attacking.enabled = true;
-    //    if (player2Movement != null) player2Movement.enabled = true;
-    //    if (player2Attacking != null) player2Attacking.enabled = true;
-    //}
+    private void EnablePlayerInput()
+    {
+        if (player1Movement != null) player1Movement.enabled = true;
+        if (player1Attacking != null) player1Attacking.enabled = true;
+        if (player2Movement != null) player2Movement.enabled = true;
+        if (player2Attacking != null) player2Attacking.enabled = true;
+    }
 
     public bool getRevived()
     {
