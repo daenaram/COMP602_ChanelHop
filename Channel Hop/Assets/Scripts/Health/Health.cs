@@ -13,6 +13,11 @@ public class Health : MonoBehaviour
     [Header("Components to disable on death")]
     [SerializeField] private Behaviour[] components;
 
+    [Header("Sound Effects")]
+    [SerializeField] private AudioClip hurtSound;
+    [SerializeField] private AudioClip deathSound;
+    private AudioSource audioSource;
+
     private Rigidbody2D rb;
 
     private void Awake()
@@ -32,6 +37,7 @@ public class Health : MonoBehaviour
         {
             // player hurt
             anim.SetTrigger("hurt");
+            SFXManager.instance.PlaySound(hurtSound);
             // iframes
         }
         else
@@ -40,6 +46,7 @@ public class Health : MonoBehaviour
             {
                 // player dead
                 anim.SetTrigger("die");
+                SFXManager.instance.PlaySound(deathSound);
                 dead = true;
                 Debug.Log($"Dead called for {gameObject.name}");
 
