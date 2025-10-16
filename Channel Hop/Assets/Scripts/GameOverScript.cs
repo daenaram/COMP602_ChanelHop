@@ -10,6 +10,8 @@ public class GameOverScript : MonoBehaviour
     [SerializeField] private Health player2HP;
     [SerializeField] private PlayerRespawn player1Respawn;
     [SerializeField] private PlayerRespawn player2Respawn;
+    [SerializeField] SaveUI saveUI;
+    [SerializeField] private SaveController saveController;
     public bool isGameOver = false;
     private PlayerMovement player1Movement;
     private PlayerMovement player2Movement;
@@ -42,6 +44,7 @@ public class GameOverScript : MonoBehaviour
             isGameOver = true;
             Time.timeScale = 0f;
             gameOver.SetActive(true);
+            DisablePlayerInput();
         }
     }
 
@@ -58,6 +61,8 @@ public class GameOverScript : MonoBehaviour
         player1HP.SetHealth(player1HP.startingHealth);
         player2HP.SetHealth(player2HP.startingHealth);
 
+        EnablePlayerInput();
+
         //AddHealth(startingHealth);
         player1Anim.ResetTrigger("die");
         player1Anim.Play("Idle");
@@ -69,29 +74,37 @@ public class GameOverScript : MonoBehaviour
 
     public void exit()
     {
-        // SceneManager.LoadScene("Menu");
         exitPopUp.SetActive(true);
     }
 
+    public void yesExit()
+    {
+        saveController.SaveGame("LastSave.json");
+        SceneManager.LoadScene("Menu");
+    }
+    public void noExit()
+    {
+         SceneManager.LoadScene("Menu");
+    }
     public void activateGameOver()
     {
         gameOver.SetActive(true);
     }
-    //private void DisablePlayerInput()
-    //{
-    //    if (player1Movement != null) player1Movement.enabled = false;
-    //    if (player1Attacking != null) player1Attacking.enabled = false;
-    //    if (player2Movement != null) player2Movement.enabled = false;
-    //    if (player2Attacking != null) player2Attacking.enabled = false;
-    //}
+    private void DisablePlayerInput()
+    {
+        if (player1Movement != null) player1Movement.enabled = false;
+        if (player1Attacking != null) player1Attacking.enabled = false;
+        if (player2Movement != null) player2Movement.enabled = false;
+        if (player2Attacking != null) player2Attacking.enabled = false;
+    }
 
-    //private void EnablePlayerInput()
-    //{
-    //    if (player1Movement != null) player1Movement.enabled = true;
-    //    if (player1Attacking != null) player1Attacking.enabled = true;
-    //    if (player2Movement != null) player2Movement.enabled = true;
-    //    if (player2Attacking != null) player2Attacking.enabled = true;
-    //}
+    private void EnablePlayerInput()
+    {
+        if (player1Movement != null) player1Movement.enabled = true;
+        if (player1Attacking != null) player1Attacking.enabled = true;
+        if (player2Movement != null) player2Movement.enabled = true;
+        if (player2Attacking != null) player2Attacking.enabled = true;
+    }
 
     public bool getRevived()
     {

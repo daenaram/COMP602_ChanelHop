@@ -42,7 +42,7 @@ public class SaveUI : MonoBehaviour
     }
 
     // Called when confirm button is pressed
-    private void OnConfirmSave()
+    public void OnConfirmSave()
     {
         if (!string.IsNullOrEmpty(saveNameInput.text))
         {
@@ -58,7 +58,7 @@ public class SaveUI : MonoBehaviour
     }
 
     // Close save panel and resume player input
-    private void CloseSaveDialog()
+    public void CloseSaveDialog()
     {
         savePanel.SetActive(false);
         Time.timeScale = 1; // Resume game
