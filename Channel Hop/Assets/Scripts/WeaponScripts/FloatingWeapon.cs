@@ -79,6 +79,17 @@ public class FloatingWeapon : MonoBehaviour
         if (weaponController != null && !isCollected)
         {
             Debug.Log($"{player.name} equipped: {weaponType}");
+            
+            // Get previous weapon before equipping new one
+            FloatingWeapon previousWeapon = weaponController.GetCurrentWeapon();
+            
+            // If player had a weapon, reactivate it
+            if (previousWeapon != null)
+            {
+                previousWeapon.ReactivateWeapon();
+            }
+
+            // Equip the new weapon
             weaponController.EquipWeapon(weaponType, this);
 
             // Mark as collected and hide sprite
@@ -93,9 +104,24 @@ public class FloatingWeapon : MonoBehaviour
     public void ReactivateWeapon()
     {
         isCollected = false;
-        if (overlayRenderer != null) overlayRenderer.enabled = false;
+        
+        // Reset position to starting position
+        transform.position = new Vector3(
+            transform.position.x,
+            startPosition.y,
+            transform.position.z
+        );
+        
+        if (overlayRenderer != null) 
+        {
+            overlayRenderer.enabled = false;
+        }
+        
         SpriteRenderer mainRenderer = GetComponent<SpriteRenderer>();
-        if (mainRenderer != null) mainRenderer.enabled = true;
+        if (mainRenderer != null) 
+        {
+            mainRenderer.enabled = true;
+        }
     }
 
     private void OnDrawGizmos()

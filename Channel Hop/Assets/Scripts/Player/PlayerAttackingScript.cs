@@ -38,6 +38,12 @@ public class PlayerAttackingScript : MonoBehaviour
     private bool isChargingBow = false;
 
     private KeyCode attackKey;
+    [Header("Sound Effects")]
+    [SerializeField] private AudioClip swordSwingSFX;
+    [SerializeField] private AudioClip axeSwingSFX;
+    [SerializeField] private AudioClip staffCastSFX;
+    [SerializeField] private AudioClip bowShootSFX;
+
 
     private void Start()
     {
@@ -68,6 +74,7 @@ public class PlayerAttackingScript : MonoBehaviour
     {
         if (Input.GetKeyDown(attackKey))
         {
+            SFXManager.instance.PlaySound(swordSwingSFX);
             GameObject slashEffect = Instantiate(swordSlashPrefab, swordAttackPoint.position, swordAttackPoint.rotation);
             Destroy(slashEffect, 0.5f);
 
@@ -86,6 +93,7 @@ public class PlayerAttackingScript : MonoBehaviour
     {
         if (Input.GetKeyDown(attackKey))
         {
+            SFXManager.instance.PlaySound(axeSwingSFX);
             GameObject slashEffect = Instantiate(axeSlashPrefab, axeAttackPoint.position, axeAttackPoint.rotation);
             Destroy(slashEffect, 0.8f);
 
@@ -104,6 +112,7 @@ public class PlayerAttackingScript : MonoBehaviour
     {
         if (Input.GetKeyDown(attackKey))
         {
+            SFXManager.instance.PlaySound(staffCastSFX);
             float facingDirection = transform.localScale.x > 0 ? 1f : -1f;
             Vector3 shootDirection = new Vector3(facingDirection, 0f, 0f).normalized;
 
@@ -122,6 +131,7 @@ public class PlayerAttackingScript : MonoBehaviour
     {
         if (Input.GetKeyDown(attackKey))
         {
+            SFXManager.instance.PlaySound(bowShootSFX);
             isChargingBow = true;
             bowChargeStartTime = Time.time;
         }
