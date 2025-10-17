@@ -37213,9 +37213,6 @@ MonoBehaviour:
     m_Bits: 128
   player1: {fileID: 0}
   maxDistance: 8
-  dashForce: 15
-  dashDuration: 0.2
-  staminaRecoveryTime: 2.5
 --- !u!50 &1017125426
 Rigidbody2D:
   serializedVersion: 5
@@ -37382,8 +37379,6 @@ MonoBehaviour:
   player2HP: {fileID: 2037637550}
   player1Respawn: {fileID: 1017125423}
   player2Respawn: {fileID: 2037637551}
-  saveUI: {fileID: 0}
-  saveController: {fileID: 0}
   isGameOver: 0
 --- !u!1 &1019341663
 GameObject:
@@ -74329,10 +74324,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   player1: {fileID: 0}
-  maxDistance: 15
-  dashForce: 15
-  dashDuration: 0.2
-  staminaRecoveryTime: 2.5
+  maxDistance: 10
 --- !u!50 &2037637554
 Rigidbody2D:
   serializedVersion: 5
@@ -74499,8 +74491,6 @@ MonoBehaviour:
   player2HP: {fileID: 2037637550}
   player1Respawn: {fileID: 1017125423}
   player2Respawn: {fileID: 2037637551}
-  saveUI: {fileID: 0}
-  saveController: {fileID: 0}
   isGameOver: 0
 --- !u!1 &2040027263
 GameObject:
