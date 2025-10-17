@@ -30,7 +30,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float staminaRecoveryTime = 2f;
 
     // Cloud VFX
-    [SerializeField] private GameObject cloudVFXPrefab; // Assign your cloud particle effect in Inspector
+    [SerializeField] private GameObject cloudVFXPrefab; 
+
+    // Add these variables
+    [SerializeField] private GameObject staminaIndicator; 
+    private SpriteRenderer staminaIndicatorRenderer;
 
     private Rigidbody2D body;
     private Animator anim;
@@ -42,6 +46,17 @@ public class PlayerMovement : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
+        
+        // Create and setup stamina indicator
+        if (staminaIndicator != null)
+        {
+            // Instantiate the indicator as a child of the player
+            GameObject indicator = Instantiate(staminaIndicator, transform);
+            // Position it above the player
+            indicator.transform.localPosition = new Vector3(0, 1.5f, 0);
+            // Get the sprite renderer component
+            staminaIndicatorRenderer = indicator.GetComponent<SpriteRenderer>();
+        }
     }
 
     private void Update()
@@ -132,6 +147,9 @@ public class PlayerMovement : MonoBehaviour
             else if (distance < -maxDistance)
                 transform.position = new Vector3(player1.position.x - maxDistance, transform.position.y, transform.position.z);
         }
+
+        // Update stamina indicator
+        UpdateStaminaIndicator();
     }
 
     private void HandleJump()
@@ -288,5 +306,16 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(duration);
         speed -= amount;
         GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
+    private void UpdateStaminaIndicator()
+    {
+        if (staminaIndicatorRenderer != null)
+        {
+            // Keep color white but change alpha for visibility
+            Color indicatorColor = Color.white;
+            indicatorColor.a = hasStamina ? 1f : 0.2f;  // Fully visible when has stamina, mostly transparent when depleted
+            staminaIndicatorRenderer.color = indicatorColor;
+        }
     }
 }
