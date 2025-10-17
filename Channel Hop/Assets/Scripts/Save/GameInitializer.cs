@@ -27,6 +27,7 @@ public class GameInitializer : MonoBehaviour
             player1.GetComponent<Health>().SetHealth(data.currentHealth1);
             pc.EquipWeapon(data.currentWeapon1, null);
             player1.GetComponent<PlayerRespawn>().SetCheckpointPosition(data.checkpointPosition1);
+            
         }
 
         GameObject player2 = GameObject.FindWithTag("Player2");
@@ -37,6 +38,7 @@ public class GameInitializer : MonoBehaviour
             player2.GetComponent<Health>().SetHealth(data.currentHealth2);
             pc.EquipWeapon(data.currentWeapon2, null);
             player2.GetComponent<PlayerRespawn>().SetCheckpointPosition(data.checkpointPosition2);
+            
         }
 
         SaveController.SaveDataToApply = null;
