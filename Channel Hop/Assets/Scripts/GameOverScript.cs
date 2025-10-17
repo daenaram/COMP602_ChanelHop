@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class GameOverScript : MonoBehaviour
 {
-    [SerializeField] private GameObject gameOver;
+    [SerializeField] public GameObject gameOver;
     [SerializeField] private GameObject exitPopUp;
     [SerializeField] private Health player1HP;
     [SerializeField] private Health player2HP;
