@@ -37216,6 +37216,7 @@ MonoBehaviour:
   dashForce: 15
   dashDuration: 0.2
   staminaRecoveryTime: 2.5
+  cloudVFXPrefab: {fileID: 515975552119678824, guid: bb691b2046510524cbe28ba557ab912e, type: 3}
 --- !u!50 &1017125426
 Rigidbody2D:
   serializedVersion: 5
@@ -74333,6 +74334,7 @@ MonoBehaviour:
   dashForce: 15
   dashDuration: 0.2
   staminaRecoveryTime: 2.5
+  cloudVFXPrefab: {fileID: 515975552119678824, guid: bb691b2046510524cbe28ba557ab912e, type: 3}
 --- !u!50 &2037637554
 Rigidbody2D:
   serializedVersion: 5
