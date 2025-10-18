@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndTVTrigger : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class EndTVTrigger : MonoBehaviour
     private PlayerMovement player2Movement;
     private PlayerAttackingScript player1Attacking;
     private PlayerAttackingScript player2Attacking;
+    [SerializeField]private int threeStar = 10;
+    [SerializeField]private int twoStar = 7;
+    [SerializeField]private int oneStar = 4;
     private void Start()
     {
         endPanel.SetActive(false);
@@ -19,6 +23,7 @@ public class EndTVTrigger : MonoBehaviour
         star3.SetActive(false);
 
         Debug.Log(numCoins);
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -32,20 +37,20 @@ public class EndTVTrigger : MonoBehaviour
                 Time.timeScale = 0f;
                 DisablePlayerInput();
 
-                if (numCoins.totalCoins == 10)
+                if (numCoins.totalCoins >= threeStar)
                 {
                     star1.SetActive(true);
                     star2.SetActive(true);
                     star3.SetActive(true);
                     Debug.Log("Player collected all coins!");
                 }
-                else if (numCoins.totalCoins >= 7)
+                else if (numCoins.totalCoins >= twoStar)
                 {
                     star1.SetActive(true);
                     star2.SetActive(true);
                     Debug.Log("Player collected at least 7 coins!");
                 }
-                else if (numCoins.totalCoins >= 4)
+                else if (numCoins.totalCoins >= oneStar)
                 {
                     star1.SetActive(true);
                     Debug.Log("Player collected at least 4 coins!");
@@ -68,5 +73,8 @@ public class EndTVTrigger : MonoBehaviour
         if (player2Attacking != null) player2Attacking.enabled = false;
     }
 
-
+    public void nextLvl()
+    {
+        SceneManager.LoadScene("Level2");
+    }
 }
