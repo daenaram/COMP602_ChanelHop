@@ -4,7 +4,7 @@ using TMPro;
 public class CoinManager : MonoBehaviour
 {
     public static CoinManager instance;
-    private int totalCoins;
+    public int totalCoins;
 
     [SerializeField] private TMP_Text coinText;
 
