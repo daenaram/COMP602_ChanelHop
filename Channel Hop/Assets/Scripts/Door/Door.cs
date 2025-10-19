@@ -13,9 +13,9 @@ public class Door : MonoBehaviour
         {
             float targetX;
 
-            if (collision.transform.position.x < transform.position.x)
+            if (collision.transform.position.x < transform.position.x)//if player is on the left side of the door, go to next room
             {
-                targetX = nextRoom.position.x;
+                targetX = nextRoom.position.x;//set targetX to next room's x position
                 cam.MoveToNewRoom(nextRoom);
             }
             else
