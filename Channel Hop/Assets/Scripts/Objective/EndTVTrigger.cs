@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +16,9 @@ public class EndTVTrigger : MonoBehaviour
     [SerializeField]private int threeStar = 10;
     [SerializeField]private int twoStar = 7;
     [SerializeField]private int oneStar = 4;
+
+    [SerializeField] private Timer levelTimer;
+    [SerializeField] private TextMeshProUGUI timeDisplay;
     private void Start()
     {
         endPanel.SetActive(false);
@@ -36,6 +40,17 @@ public class EndTVTrigger : MonoBehaviour
                 Debug.Log("End panel activated!");
                 Time.timeScale = 0f;
                 DisablePlayerInput();
+
+                if (levelTimer != null && timeDisplay != null)
+                {
+                    levelTimer.StopTimer(); 
+                    timeDisplay.text = "Time: " + levelTimer.GetFormattedTime();
+                }
+                else
+                {
+                    Debug.LogWarning("Timer or timeDisplay reference is missing!");
+                }
+
 
                 if (numCoins.totalCoins >= threeStar)
                 {

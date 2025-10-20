@@ -9711,7 +9711,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 4
+  dead: 0
+  gameOver: {fileID: 0}
   components: []
+  hurtSound: {fileID: 0}
+  deathSound: {fileID: 0}
 --- !u!4 &1244443974
 Transform:
   m_ObjectHideFlags: 0
@@ -9744,6 +9748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473fb90e0d9ba2341b7fadd452c0dbe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayer1: 1
   swordAttackSpeed: 0.3
   axeAttackSpeed: 1
   staffProjectileSpeed: 8
@@ -9753,7 +9758,6 @@ MonoBehaviour:
   arrowPrefab: {fileID: 3586903899358818713, guid: 8456a4deffa72d84aae20c87f29d9421, type: 3}
   swordSlashPrefab: {fileID: 4599840539083574084, guid: 9b32816e1429ab04d858fefbff402dd4, type: 3}
   axeSlashPrefab: {fileID: 1558609236971415832, guid: 3c96866de839e3c4ab0a0fff88f202e0, type: 3}
-  meleeRange: 1.5
   staffAoeRadius: 2
   swordRadius: 0.5
   axeRadius: 1
@@ -9764,6 +9768,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   characterSprite: {fileID: 1244443982}
+  swordSwingSFX: {fileID: 0}
+  axeSwingSFX: {fileID: 0}
+  staffCastSFX: {fileID: 0}
+  bowShootSFX: {fileID: 0}
 --- !u!114 &1244443976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9827,13 +9835,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb83d498b4618c44d81099dadbc81e0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerID: 0
   speed: 5
+  jumpHeight: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   wallLayer:
     serializedVersion: 2
     m_Bits: 128
+  player1: {fileID: 0}
+  maxDistance: 8
+  dashForce: 10
+  dashDuration: 0.2
+  staminaRecoveryTime: 2
+  cloudVFXPrefab: {fileID: 0}
+  staminaIndicator: {fileID: 0}
 --- !u!50 &1244443980
 Rigidbody2D:
   serializedVersion: 5
@@ -13673,9 +13690,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b586c38506413e4182cf8fea3f2d928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1244443974}
-  lookAheadDistance: 2
-  cameraSpeed: 1
+  player1: {fileID: 0}
+  player2: {fileID: 0}
+  smoothSpeed: 0.125
+  offset: {x: 0, y: 0, z: 0}
+  cam: {fileID: 0}
+  minZoom: 5
+  maxZoom: 10
+  zoomLimiter: 10
 --- !u!114 &1597746646
 MonoBehaviour:
   m_ObjectHideFlags: 0
