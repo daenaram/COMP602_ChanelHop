@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class OptionsManager : MonoBehaviour
 {
     [SerializeField] private Slider musicVolumeSlider;
-    [SerializeField] private Slider sfxVolumeSlider;    // Add this line
+    [SerializeField] private Slider sfxVolumeSlider;   
     private MusicManager musicManager;
 
     private void Start()
