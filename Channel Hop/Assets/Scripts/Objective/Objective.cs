@@ -17,7 +17,7 @@ public class Objective : MonoBehaviour
         StartCoroutine(FadeOut());
     }
 
-    IEnumerator FadeOut()
+     public IEnumerator FadeOut()
     {
         float timer = 0f;
         while (timer < fadeDuration)
@@ -29,6 +29,7 @@ public class Objective : MonoBehaviour
 
         // Only disable THIS panel, not its parent
         gameObject.SetActive(false);
+
     }
 }
 

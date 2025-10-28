@@ -2491,7 +2491,7 @@ GameObject:
   - component: {fileID: 57989481}
   - component: {fileID: 57989480}
   - component: {fileID: 57989479}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Resume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4820,7 +4820,7 @@ GameObject:
   m_Component:
   - component: {fileID: 111405984}
   - component: {fileID: 111405985}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Buttons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5578,7 +5578,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 133695395}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8727,7 +8727,7 @@ GameObject:
   - component: {fileID: 218632301}
   - component: {fileID: 218632303}
   - component: {fileID: 218632302}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Game Paused
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10765,7 +10765,7 @@ GameObject:
   - component: {fileID: 278987252}
   - component: {fileID: 278987251}
   - component: {fileID: 278987250}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Continue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12275,7 +12275,7 @@ GameObject:
   - component: {fileID: 313464801}
   - component: {fileID: 313464803}
   - component: {fileID: 313464802}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13710,7 +13710,7 @@ GameObject:
   - component: {fileID: 349932753}
   - component: {fileID: 349932752}
   - component: {fileID: 349932754}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: 2Star
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16147,7 +16147,7 @@ GameObject:
   - component: {fileID: 433307647}
   - component: {fileID: 433307646}
   - component: {fileID: 433307645}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Home
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25962,7 +25962,7 @@ GameObject:
   - component: {fileID: 672292701}
   - component: {fileID: 672292700}
   - component: {fileID: 672292699}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Pause Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27767,7 +27767,7 @@ GameObject:
   - component: {fileID: 721345988}
   - component: {fileID: 721345987}
   - component: {fileID: 721345986}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33152,7 +33152,7 @@ GameObject:
   - component: {fileID: 870798770}
   - component: {fileID: 870798772}
   - component: {fileID: 870798771}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35708,7 +35708,7 @@ GameObject:
   - component: {fileID: 947034426}
   - component: {fileID: 947034428}
   - component: {fileID: 947034427}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36871,7 +36871,7 @@ GameObject:
   - component: {fileID: 980178865}
   - component: {fileID: 980178867}
   - component: {fileID: 980178866}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38350,6 +38350,11 @@ MonoBehaviour:
     m_Bits: 128
   player1: {fileID: 0}
   maxDistance: 8
+  dashForce: 10
+  dashDuration: 0.2
+  staminaRecoveryTime: 2
+  cloudVFXPrefab: {fileID: 0}
+  staminaIndicator: {fileID: 0}
 --- !u!50 &1017125426
 Rigidbody2D:
   serializedVersion: 5
@@ -39938,7 +39943,7 @@ GameObject:
   - component: {fileID: 1050968878}
   - component: {fileID: 1050968877}
   - component: {fileID: 1050968876}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PauseUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40006,7 +40011,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 999
   m_TargetDisplay: 0
 --- !u!224 &1050968879
 RectTransform:
@@ -40624,7 +40629,7 @@ GameObject:
   - component: {fileID: 1067975230}
   - component: {fileID: 1067975232}
   - component: {fileID: 1067975231}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: 'SFX:'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42236,7 +42241,7 @@ GameObject:
   - component: {fileID: 1103446125}
   - component: {fileID: 1103446127}
   - component: {fileID: 1103446126}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50036,7 +50041,7 @@ GameObject:
   - component: {fileID: 1326445745}
   - component: {fileID: 1326445747}
   - component: {fileID: 1326445746}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: End Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51951,7 +51956,7 @@ GameObject:
   - component: {fileID: 1390161662}
   - component: {fileID: 1390161661}
   - component: {fileID: 1390161663}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: 1Star
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53849,7 +53854,7 @@ GameObject:
   - component: {fileID: 1450949503}
   - component: {fileID: 1450949502}
   - component: {fileID: 1450949501}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Pause Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55885,7 +55890,7 @@ GameObject:
   - component: {fileID: 1499200888}
   - component: {fileID: 1499200890}
   - component: {fileID: 1499200889}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60512,7 +60517,7 @@ GameObject:
   - component: {fileID: 1638882564}
   - component: {fileID: 1638882563}
   - component: {fileID: 1638882565}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: '3Star '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62079,7 +62084,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1682888183}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: GameObjective
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71906,7 +71911,7 @@ GameObject:
   - component: {fileID: 1916163194}
   - component: {fileID: 1916163196}
   - component: {fileID: 1916163195}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72721,7 +72726,7 @@ GameObject:
   - component: {fileID: 1934049931}
   - component: {fileID: 1934049933}
   - component: {fileID: 1934049932}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: 'BGM: '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75094,7 +75099,7 @@ GameObject:
   - component: {fileID: 1994941036}
   - component: {fileID: 1994941038}
   - component: {fileID: 1994941037}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76797,6 +76802,11 @@ MonoBehaviour:
     m_Bits: 128
   player1: {fileID: 0}
   maxDistance: 10
+  dashForce: 10
+  dashDuration: 0.2
+  staminaRecoveryTime: 2
+  cloudVFXPrefab: {fileID: 0}
+  staminaIndicator: {fileID: 0}
 --- !u!50 &2037637554
 Rigidbody2D:
   serializedVersion: 5
@@ -80094,6 +80104,8 @@ MonoBehaviour:
   threeStar: 10
   twoStar: 7
   oneStar: 4
+  levelTimer: {fileID: 0}
+  timeDisplay: {fileID: 0}
 --- !u!1 &2123169858
 GameObject:
   m_ObjectHideFlags: 0
@@ -80485,7 +80497,7 @@ GameObject:
   - component: {fileID: 2133592170}
   - component: {fileID: 2133592169}
   - component: {fileID: 2133592168}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Restart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81029,7 +81041,7 @@ GameObject:
   - component: {fileID: 2146177780}
   - component: {fileID: 2146177783}
   - component: {fileID: 2146177782}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81104,8 +81116,8 @@ CanvasGroup:
   m_GameObject: {fileID: 2146177778}
   m_Enabled: 1
   m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &2146177783
 MonoBehaviour:
