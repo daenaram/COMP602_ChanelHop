@@ -6,21 +6,36 @@ public class PauseScript : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private Button pauseButton;
+    private Objective ObjectiveObject;
 
     public void Awake()
     {
+        
         pauseMenu.SetActive(false); // Ensure the pause menu is inactive at the start
         pauseButton.interactable = true; // Ensure the pause button is interactable
+
+
     }
 
     public void Update()
     {
+        //if (Input.GetKey(KeyCode.Escape) && pauseMenu != null)
+        //{
+            
+        //    pause();
+        //}
+        //else
+        //{
+        //    resume();
+        //}
     }
     public void pause()
     {
+
         pauseMenu.SetActive(true); // Activate the pause menu
         Time.timeScale = 0; // Pause the game
         pauseButton.interactable = false; // Disable the pause button
+        
     }
 
     public void home()
@@ -41,5 +56,5 @@ public class PauseScript : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1;
     }
-
+    
 }
