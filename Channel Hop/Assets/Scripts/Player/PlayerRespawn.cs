@@ -12,28 +12,28 @@ public class PlayerRespawn : MonoBehaviour
         playerHealth = GetComponent<Health>();
         GameOver = GetComponent<GameOverScript>();
     }
+
     public void Respawn()
     {
         Debug.Log($"PlayerRespawn called for {gameObject.name}");
-        if (GameOver.getRevived())
+        if (currentCheckpoint != null)
         {
-            if (currentCheckpoint != null)
-            {
-                transform.position = currentCheckpoint.position;
-                playerHealth.Respawn();
-            }
-
+            transform.position = currentCheckpoint.position;
+            playerHealth.Respawn();
         }
-
+        else
+        {
+            Debug.LogWarning("No checkpoint set for respawn!");
+        }
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.tag == "Checkpoint")
         {
             currentCheckpoint = collision.transform; // store checkpoint we activated as current checkpoint
-            //SoundManager.instance.PlaySound(checkpointSound);
             collision.GetComponent<Collider2D>().enabled = false; //Deactivate checkpoint collider
-            collision.GetComponent<Animator>().SetTrigger("appear");// Trigger checkpoint animation using appear trigger
+            collision.GetComponent<Animator>().SetTrigger("appear"); // Trigger checkpoint animation using appear trigger
         }
     }
 
@@ -41,6 +41,7 @@ public class PlayerRespawn : MonoBehaviour
     {
         return currentCheckpoint;
     }
+
     public void SetCheckpointPosition(Vector3 pos)
     {
         if (pos != Vector3.zero) // avoid default "no checkpoint"
@@ -50,10 +51,9 @@ public class PlayerRespawn : MonoBehaviour
             currentCheckpoint = checkpointObj.transform; // Update currentCheckpoint to the new transform
         }
     }
+
     public void SetGameOver(GameOverScript go)
     {
         GameOver = go;
     }
-
-
 }

@@ -23,23 +23,51 @@ public class GameOverScript : MonoBehaviour
 
     void Start()
     {
-        player1Movement = GameObject.FindWithTag("Player1").GetComponent<PlayerMovement>();
-        player1Attacking = GameObject.FindWithTag("Player1").GetComponent<PlayerAttackingScript>();
-        player1Anim = GameObject.FindWithTag("Player1").GetComponent<Animator>();
+        GameObject player1 = GameObject.FindWithTag("Player1");
+        GameObject player2 = GameObject.FindWithTag("Player2");
 
-        player2Movement = GameObject.FindWithTag("Player2").GetComponent<PlayerMovement>();
-        player2Attacking = GameObject.FindWithTag("Player2").GetComponent<PlayerAttackingScript>();
-        player2Anim = GameObject.FindWithTag("Player2").GetComponent<Animator>();
+        if (player1 != null)
+        {
+            player1Movement = player1.GetComponent<PlayerMovement>();
+            player1Attacking = player1.GetComponent<PlayerAttackingScript>();
+            player1Anim = player1.GetComponent<Animator>();
+            if (player1HP == null)
+            {
+                player1HP = player1.GetComponent<Health>();
+            }
+        }
 
-        player1Respawn.SetGameOver(this);
-        player2Respawn.SetGameOver(this);
-        gameOver.SetActive(false);
-        exitPopUp.SetActive(false);
+        if (player2 != null)
+        {
+            player2Movement = player2.GetComponent<PlayerMovement>();
+            player2Attacking = player2.GetComponent<PlayerAttackingScript>();
+            player2Anim = player2.GetComponent<Animator>();
+            if (player2HP == null)
+            {
+                player2HP = player2.GetComponent<Health>();
+            }
+        }
+
+        // Initialize UI state
+        if (gameOver != null) gameOver.SetActive(false);
+        if (exitPopUp != null) exitPopUp.SetActive(false);
     }
 
     void Update()
     {
-        if (GameObject.FindWithTag("Player1").GetComponent<Health>().dead || GameObject.FindWithTag("Player2").GetComponent<Health>().dead)
+        if (player1HP == null)
+        {
+            Debug.LogError("Player1 HP reference not set in inspector!");
+            return;
+        }
+
+        if (player2HP == null)
+        {
+            Debug.LogError("Player2 HP reference not set in inspector!");
+            return;
+        }
+
+        if (player1HP.dead || player2HP.dead)
         {
             isGameOver = true;
             Time.timeScale = 0f;
@@ -50,28 +78,49 @@ public class GameOverScript : MonoBehaviour
 
     public void revive()
     {
+        Debug.Log("Revive called");
         Time.timeScale = 1f;
         isRevived = true;
         isGameOver = false;
-        gameOver.SetActive(false);
+        
+        if (gameOver != null)
+            gameOver.SetActive(false);
 
-        player1Respawn.Respawn();
-        player2Respawn.Respawn();
+        // Reset health first
+        if (player1HP != null)
+        {
+            player1HP.SetHealth(player1HP.startingHealth);
+            player1HP.dead = false;
+        }
+        
+        if (player2HP != null)
+        {
+            player2HP.SetHealth(player2HP.startingHealth);
+            player2HP.dead = false;
+        }
 
-        player1HP.SetHealth(player1HP.startingHealth);
-        player2HP.SetHealth(player2HP.startingHealth);
+        // Then handle respawn
+        if (player1Respawn != null)
+            player1Respawn.Respawn();
+        if (player2Respawn != null)
+            player2Respawn.Respawn();
 
         EnablePlayerInput();
 
-        //AddHealth(startingHealth);
-        player1Anim.ResetTrigger("die");
-        player1Anim.Play("Idle");
+        // Reset animations
+        if (player1Anim != null)
+        {
+            player1Anim.ResetTrigger("die");
+            player1Anim.Play("Idle");
+        }
 
-        player2Anim.ResetTrigger("die");
-        player2Anim.Play("Idle");
-
+        if (player2Anim != null)
+        {
+            player2Anim.ResetTrigger("die");
+            player2Anim.Play("Idle");
+        }
     }
-
+    
     public void exit()
     {
         exitPopUp.SetActive(true);
