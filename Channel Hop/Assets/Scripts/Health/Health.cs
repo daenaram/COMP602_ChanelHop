@@ -87,9 +87,17 @@ public class Health : MonoBehaviour
     {
         Debug.Log($"Health called for {gameObject.name}");
         dead = false;
-        // AddHealth(startingHealth);
-        // anim.ResetTrigger("die");
-        // anim.Play("Idle");
+
+        // restore health
+        SetHealth(startingHealth);
+
+        // reset animator so the "die" pose/sprite is cleared
+        if (anim != null)
+        {
+            anim.ResetTrigger("die");
+            anim.Play("Idle");
+        }
+
         // StartCoroutine(Invunerability());// this is optional
 
         /*foreach (Behaviour component in components)

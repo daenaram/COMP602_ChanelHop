@@ -20,6 +20,7 @@ public class PlayerRespawn : MonoBehaviour
         {
             transform.position = currentCheckpoint.position;
             playerHealth.Respawn();
+            playerHealth.SetHealth(4);
         }
         else
         {

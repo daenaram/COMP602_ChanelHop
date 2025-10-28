@@ -35,6 +35,11 @@ public class GameOverScript : MonoBehaviour
             {
                 player1HP = player1.GetComponent<Health>();
             }
+            // auto-assign player1Respawn if not set in inspector
+            if (player1Respawn == null)
+            {
+                player1Respawn = player1.GetComponent<PlayerRespawn>();
+            }
         }
 
         if (player2 != null)
@@ -45,6 +50,11 @@ public class GameOverScript : MonoBehaviour
             if (player2HP == null)
             {
                 player2HP = player2.GetComponent<Health>();
+            }
+            // auto-assign player2Respawn if not set in inspector
+            if (player2Respawn == null)
+            {
+                player2Respawn = player2.GetComponent<PlayerRespawn>();
             }
         }
 
